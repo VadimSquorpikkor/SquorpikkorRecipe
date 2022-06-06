@@ -1,0 +1,195 @@
+
+/*region ------- A DIV P IMG H1 H3 UL OL FIGCAPTION BODY PRE------------------------------------------------------------------------*/
+
+body {
+    font-family: Arial;
+    text-align: justify;
+    font-size: 18px;
+    font-family: sans-serif;
+    background-color: white;
+}
+
+div {
+    text-indent: 30px;
+}
+p {
+    text-indent: 40px;
+}
+h1, h3 {
+    font-size: 26px;
+    color: #bd7400;
+    text-align: center;
+    font-family: "Book Antiqua", "Garamond", "Traditional Arabic", "Times New Roman", sans-serif;
+    text-transform: uppercase;
+    text-indent: 0;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*это чтобы на фоне картинке текст заголовка не сливался с картинкой*/
+}
+
+h3 {
+    font-size: 22px;
+    text-transform: none;
+
+}
+/*-------------------------*/
+
+a {
+    color: darkorange;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    padding: 2px 4px;
+    margin-left: -4px;
+    transition-property: all;
+    transition-duration: 450ms;
+}
+
+a:hover {
+    color: white;
+    background-color: darkorange;
+    border-radius: 9px;
+    padding: 2px 4px;
+    transition-property: all;
+    transition-duration: 250ms;
+}
+
+img {
+    display: block;
+    margin: 5px auto;
+    max-width: 100%;
+    width: 700px;
+    text-indent: 0;
+    color: red;
+    font-style: italic;
+}
+
+
+
+
+
+ul {
+    padding-left: 10px;
+    padding-right: 10px;
+    list-style-position: inside;
+    font-size: 18px;
+    list-style-type: disc;
+}
+
+ul ul {
+    padding-left: 40px;
+}
+
+ol {
+    /*padding-left: 40px;*/
+    text-indent: 10px;
+    font-size: 18px;
+}
+
+figcaption {
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+    text-indent: 0;
+}
+
+
+
+pre {
+    font-size: 14px;
+    margin-left: 50px;
+    margin-right: 50px;
+    /*max-width: 500px;*/
+    background: #333333;
+    color: #dddddd;
+}
+
+/*endregion ------------------------------------------------------------------------------------------------------------*/
+
+
+/*region ------- Таблицы --------------------------------------------------------------------------------------------------------*/
+.table_two_colors {
+    box-shadow: 4px 4px 3px 0 rgba(0, 0, 0, 0.23);
+}
+.table_two_colors tr:nth-child(odd){
+    background-color: #ffe4c4;
+}
+table a[href$='.ods']:hover, table a[href$='.odt']:hover, table a[href$='.docx']:hover, table a[href$='.xlsx']:hover, table a[href$='.xls']:hover, table a[href$='.pdf']:hover, table a[href$='.doc']:hover {
+    /*padding-left: 22px;*/
+    background-size: 22px;
+    background-color: unset;
+}
+table {
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 100%;
+}
+.small_table {
+    font-size: 14px;
+    border-collapse: collapse;
+    width: 300px;
+    margin: auto;
+}
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+/*endregion ------------------------------------------------------------------------------------------------------------*/
+
+/*region ------- UI компоненты — кнопки, селекты, инпуты -----------------------------------------------------------------------*/
+
+input[type="text"], input[type="date"], select {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: inset 5px 10px 5px -9px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: inset 10px 10px 3px -7px rgba(0, 0, 0, 0.55);
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 9px;
+    /*background-color: #dddddd;*/
+}
+
+select {
+    border-radius: 6px 0 0 6px;
+}
+
+input[type="text"]:hover, input[type="date"]:hover {
+    /*transform: scale(1.03);*/
+    /*transition-property: all;*/
+    /*transition-duration: .2s;*/
+}
+
+input[type="button"] {
+    font-size: 14px;
+    box-shadow: inset 0 0 3px 1px #111111;
+    /*background:linear-gradient(to bottom, #dfffb5 5%, #f5c98c 100%);*/
+    /*background:linear-gradient(to bottom, #5bff5e 5%, #23f51a 100%);*/
+    background: #f59708;
+    /*background-color:#dfffb5;*/
+    border-radius: 8px;
+    /*border-style: none;*/
+    /*border:1px solid #18ab29;*/
+    border-width: 0;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 3px 11px;
+    text-decoration: none;
+    text-shadow: 0 3px 3px #000000;
+}
+
+input[type="button"]:hover {
+    background: linear-gradient(to bottom, #f4ff3a 5%, #f5a208 100%);
+    /*background: #f4f515;*/
+}
+
+input[type="button"]:active {
+    background: linear-gradient(to bottom, #ffa86c 5%, #dc0d0c 100%);
+}
+
+/*endregion ------------------------------------------------------------------------------------------------------------*/

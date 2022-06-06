@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>TITLE</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="utils_style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+<a class="to_page_top" title="Наверх">&uparrow;</a>
+
+<div>
+
+    <h1>Фрагмент</h1>
+
+    <p>Фрагмент с параметром+восстановление полученных данных после поворота:</p>
+    <pre>
+    private SpecDTO dto;
+    public static final String ARG_DTO = "arguments_spectrum";
+
+    public static SpectrumFullScreenFragment newInstance(SpecDTO dto) {
+    Bundle args = new Bundle();
+    args.putParcelable(ARG_DTO, dto);
+    SpectrumFullScreenFragment fragment = new SpectrumFullScreenFragment();
+    fragment.setArguments(args);
+    return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
+    Bundle arguments = getArguments();
+    if (arguments != null) dto = arguments.getParcelable(ARG_DTO);
+    //...
+    }
+    </pre>
+
+    <p>Базовый фрагмент
+    <pre>
+    public class ListFragment extends Fragment {
+
+    public static ListFragment newInstance() {
+    return new ListFragment();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+    ) {
+    View view = inflater.inflate(R.layout.fragment_list, container, false);
+    MainViewModel mViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+    return view;
+    }
+    }
+    </pre>
+
+    <pre>
+    private void startFragment() {
+    Fragment childFragment = SingleScanFragment.newInstance();
+    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+    transaction.replace(R.id.child_fragment_container, childFragment).commit();
+    }
+    </pre>
+    <p>ли короче
+    <pre>
+    private void startFragment() {
+    getChildFragmentManager().beginTransaction().replace(R.id.child_fragment_container, SingleScanFragment.newInstance()).commit();
+    }
+    </pre>
+    <p>или
+    <pre>
+    getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, EventsSpectrumFragment.class, null).commit();
+    </pre>
+    <p>Replace with another Fragment
+    <pre>
+    private void openInfoFragment(DUnit unit) {
+    requireActivity().getSupportFragmentManager().beginTransaction()
+    .replace(R.id.child_fragment_container_3, UnitInfoFragment.newInstance(unit))
+    .addToBackStack(null)
+    .commit();
+    }
+    </pre>
+    <p>В MainActivity
+    <pre>
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    FragmentManager manager = getSupportFragmentManager();
+    Fragment fragment = manager.findFragmentById(R.id.fragment_container);
+    if (fragment == null) {
+    fragment = PassFragment.newInstance();
+    manager.beginTransaction().add(R.id.fragment_container, fragment).commit();
+    }
+
+    }
+    </pre>
+    <p>или
+    <pre>
+    if (savedInstanceState == null) {
+    getSupportFragmentManager().beginTransaction()
+    .replace(R.id.fragment_container, MainFragment.newInstance())
+    .commitNow();
+    }
+    </pre>
+    <p>по andDevelopers
+    <pre>
+    public class ExampleActivity extends AppCompatActivity {
+    public ExampleActivity() {
+    super(R.layout.example_activity);
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    if (savedInstanceState == null) {
+    getSupportFragmentManager().beginTransaction()
+    .setReorderingAllowed(true)
+    .add(R.id.fragment_container_view, ExampleFragment.class, null)
+    .commit();
+    }
+    }
+    }
+
+    </pre>
+    <p>xml
+    <pre>
+    &lt;androidx.fragment.app.FragmentContainerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/fragment_container_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.example.ExampleFragment" />
+
+    </pre>
+    <p>или
+    <pre>
+    <?xml version="1.0" encoding="utf-8"?>
+        &lt;androidx.fragment.app.FragmentContainerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </pre>
+    <p>Фрагмент в фрагменте xml:
+    <pre>
+    &lt;FrameLayout
+            android:id="@+id/child_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    &lt;/FrameLayout>
+    </pre>
+    <p>Фрагмент в фрагменте код:
+    <pre>
+    getChildFragmentManager().beginTransaction().replace(R.id.child_fragment_container, SingleScanFragment.newInstance()).commit();
+    </pre>
+    <p>Параметр через newInstance (передается через конструктор):
+    <pre>
+    private final DUnit unit;
+
+    public static UnitInfoFragment newInstance(DUnit unit) {
+    return new UnitInfoFragment(unit);
+    }
+
+    public UnitInfoFragment(DUnit unit) {
+    this.unit = unit;
+    }
+    </pre>
+
+</div>
+</body>
+</html>

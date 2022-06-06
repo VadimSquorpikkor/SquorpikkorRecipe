@@ -1,25 +1,37 @@
-
+:root {
+    --for_h_color: #bd7400;
+    --colored: #303F9F
+    /*blueDark">#303F9F*/
+}
 /*region ------- A DIV P IMG H1 H3 UL OL FIGCAPTION BODY PRE------------------------------------------------------------------------*/
 
 body {
-    font-family: Arial;
+    font-family: Arial, serif;
     text-align: justify;
     font-size: 18px;
-    font-family: sans-serif;
-    background-color: white;
+    background-color: #888888;
+    line-height: 1.5;
 }
-
+body>div {
+    box-shadow: 4px 1px 21px 1px rgba(0, 0, 0, 0.53);
+    padding: 30px 15px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    max-width: 1200px;
+}
 div {
-    text-indent: 30px;
+    padding: 20px;
+    text-indent: 40px;
+    background-color: white;
 }
 p {
     text-indent: 40px;
 }
 h1, h3 {
     font-size: 26px;
-    color: #bd7400;
+    color: var(--colored);
     text-align: center;
-    font-family: "Book Antiqua", "Garamond", "Traditional Arabic", "Times New Roman", sans-serif;
+    /*font-family: "Book Antiqua", "Garamond", "Traditional Arabic", "Times New Roman", sans-serif;*/
     text-transform: uppercase;
     text-indent: 0;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*это чтобы на фоне картинке текст заголовка не сливался с картинкой*/
@@ -28,7 +40,6 @@ h1, h3 {
 h3 {
     font-size: 22px;
     text-transform: none;
-
 }
 /*-------------------------*/
 
@@ -94,12 +105,16 @@ figcaption {
 
 
 pre {
+    margin: 5px auto;
+    font-family: Monospaced, monospace, "Courier New";
     font-size: 14px;
-    margin-left: 50px;
-    margin-right: 50px;
-    /*max-width: 500px;*/
-    background: #333333;
+    max-width: 1000px;
+    background: #444444;
+    text-indent: 0;
     color: #dddddd;
+    padding: 10px;
+    border-color: #888888;
+    border-width: 2px;
 }
 
 /*endregion ------------------------------------------------------------------------------------------------------------*/

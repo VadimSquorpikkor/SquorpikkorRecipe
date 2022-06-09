@@ -1,28 +1,45 @@
 :root {
     --for_h_color: #bd7400;
-    --colored: #303F9F
-    /*blueDark">#303F9F*/
+    --colored: #303F9F;
+    --div_bg_color: #dddddd;
+    --main_div_color: white;
+    --main_bg_color: #888888;
+    --text_color: black;
 }
+    /**blueDark">#303F9F**/
+
+/*:root {
+    --for_h_color: #bd7400;
+    --colored: #303F9F;
+    --main_bg_color: #111111;
+    --main_div_color: #333333;
+    --div_bg_color: #222222;
+    --text_color: #e6e6e6;
+}*/
+
 /*region ------- A DIV P IMG H1 H3 UL OL FIGCAPTION BODY PRE------------------------------------------------------------------------*/
 
 body {
+    color: var(--text_color);
     font-family: Arial, serif;
     text-align: justify;
     font-size: 18px;
-    background-color: #888888;
+    background-color: var(--main_bg_color);
     line-height: 1.5;
 }
 body>div {
+    background-color: var(--main_div_color);
     box-shadow: 4px 1px 21px 1px rgba(0, 0, 0, 0.53);
     padding: 30px 15px 20px;
-    margin: 10px;
+    margin: 10px auto;
     border-radius: 10px;
     max-width: 1200px;
+    min-height: 100vh;
 }
 div {
     padding: 20px;
     text-indent: 40px;
-    background-color: white;
+    background-color: var(--div_bg_color);
 }
 p {
     text-indent: 40px;
@@ -105,17 +122,30 @@ figcaption {
 
 
 pre {
+    background-color: #333333;
+    /*border-color: #737373;*/
+    color: #e6e6e6;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    border-radius: 4px;
+    padding: 8px;
+    text-indent: 0;
     margin: 5px auto;
     font-family: Monospaced, monospace, "Courier New";
     font-size: 14px;
-    max-width: 1000px;
-    background: #444444;
-    text-indent: 0;
-    color: #dddddd;
-    padding: 10px;
-    border-color: #888888;
-    border-width: 2px;
 }
+
+/*pre {*/
+/*    margin: 5px auto;*/
+/*    font-family: Monospaced, monospace, "Courier New";*/
+/*    font-size: 14px;*/
+/*    max-width: 1000px;*/
+/*    background: #444444;*/
+/*    text-indent: 0;*/
+/*    color: #dddddd;*/
+/*    padding: 10px;*/
+/*    border-color: #888888;*/
+/*    border-width: 2px;*/
+/*}*/
 
 /*endregion ------------------------------------------------------------------------------------------------------------*/
 

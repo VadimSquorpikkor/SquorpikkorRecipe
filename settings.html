@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!--    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">-->
-    <script type="text/javascript" src="js/include.js"></script>
+<!--    <script type="text/javascript" src="js/include.js"></script>-->
     <script src="js/prism.js"></script>
 </head>
 
@@ -17,8 +17,44 @@
 
 <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
+
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+</div>
+<!--<button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
+
+
+<div id="navbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
 <div class="header">
-    Squorpikkor Recipes
+    <div id="menu_main">
+    <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
+    <div id="logo_text">Squorpikkor Recipes</div>
+        <!--<ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+        </ul>-->
+
+    </div>
+
+
+
 </div>
 
 <div class="sub_header">
@@ -411,5 +447,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 </div>
 
+<script type="text/javascript" src="js/include.js"></script>
 </body>
 </html>

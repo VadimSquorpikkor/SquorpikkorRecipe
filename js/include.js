@@ -4,6 +4,7 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
+    // console.log(window.innerWidth);
     let mybutton = document.getElementById("myBtn");
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         mybutton.style.display = "block";
@@ -23,15 +24,19 @@ function topFunction() {
 /* Set the width of the sidebar to 250px (show it) */
 function openNav() {
     document.getElementById("mySidepanel").style.width = "250px";
+    // console.log(document.getElementById("content_div").style.marginLeft.valueOf());
+    // document.getElementById("content_div").style.marginLeft = "250px";
 }
 
 /* Set the width of the sidebar to 0 (hide it) */
 function closeNav() {
     document.getElementById("mySidepanel").style.width = "0";
+    // document.getElementById("content_div").style.marginLeft = "auto";
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 // let menuPlace = document.getElementsByTagName('menu_main');
 let menuPlace = document.getElementById('menu_main');
+let leftMenuPlace = document.getElementById('menuPanel');
 
 console.log(menuPlace);
 
@@ -39,11 +44,23 @@ class menuItem {
     _title;
     _path;
     _items_arrays = [];
+    _parent;
 
     constructor(title, path, ...items) {
         this._title = title;
         this._path = path;
         this._items_arrays = items;
+        if (this._items_arrays.length > 0) {
+            // console.log('>0 = '+this._items_arrays.length);
+            for (let i = 0; i < this._items_arrays.length; i++) {
+                // console.log(i);
+                this._items_arrays[i]._parent = this;
+                // console.log(this._items_arrays[i]._parent.getTitle);
+            }
+        } else {
+            console.log('<0');
+        }
+
     }
 
     get getTitle() {
@@ -60,6 +77,16 @@ class menuItem {
 
     hasChild() {
         return (this._items_arrays.length>0);
+    }
+
+    hasParent() {
+        // return typeof(this._parent.getParent()) !== 'undefined';
+        return typeof (this._parent) !== 'undefined';
+    }
+
+    getParent() {
+        // typeof(item2.getParent())==='undefined'?'NO':item2.getParent().getTitle)
+        return this._parent;
     }
 }
 
@@ -121,7 +148,7 @@ function logItem(item, tab) {
     tab = tab + '---';
     for (let j = 0; j < item.getItems.length; j++) {
         let item2 = item.getItems[j];
-        console.log(tab + item2.getTitle + '---' + item2.getItems.length);
+        console.log(tab + item2.getTitle + '---' + item2.getItems.length+' parent is '+(item2.hasParent?item2.getParent().getTitle:'NO'));
         if (item2.hasChild()) logItem(item2, tab);
     }
 }
@@ -145,7 +172,9 @@ function sqrMenuAdapter(target, sqrMenu) {
     target.innerHTML+=stringMenu;
 }
 
-function sqrMenuAdapter_(target, sqrMenu) {
+
+
+function sqrMenuAdapter__(target, sqrMenu) {
     // <ul>
     //     <li><a href="#home">Home</a></li>
     //     <li><a href="#news">News</a></li>
@@ -175,8 +204,26 @@ function sqrMenuAdapter_(target, sqrMenu) {
 
 }
 
+function sqrMenuAdapter_(target, sqrMenu) {
+    doLoop(target, sqrMenu.getItems)
+}
+
+function doLoop(target, parentArray) {
+    // console.log(typeof(parent.getParent)==='undefined'?'NO':parent.getParent.getTitle);
+    // console.log(parent.length);
+    // target.innerHTML+='<ul>';
+    for (let i = 0; i < parentArray.length; i++) {
+        let item = parentArray[i];
+        if (item.hasParent()) console.log(item.getParent().getTitle);
+        else console.log('NO PARENT');
+        target.innerHTML+='<a href="'+item.getPath+'">'+item.getTitle+'</a>';
+        if (item.hasChild()) doLoop(target, item.getItems);
+    }
+    // target.innerHTML+='</ul>';
+}
+
 function getUiForMenuItem(item) {
-    return '<a href='+item.getPath+'>'+item.getTitle+'</a>';
+    return '<a href="'+item.getPath+'">'+item.getTitle+'</a>';
 }
 
 function getUiWithListener(item) {
@@ -187,4 +234,5 @@ function getUiWithListener(item) {
 initMenu();
 
 sqrMenuAdapter(menuPlace, menu);
+sqrMenuAdapter_(leftMenuPlace, menu);
 

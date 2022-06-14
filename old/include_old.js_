@@ -34,8 +34,8 @@ function closeNav() {
     // document.getElementById("content_div").style.marginLeft = "auto";
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
+// let menuPlace = document.getElementsByTagName('menu_main');
 let menuPlace = document.getElementById('menu_main');
-let sidePanelPlace = document.getElementById('mySidepanel');
 let leftMenuPlace = document.getElementById('menuPanel');
 let headStrokeMenuPlace = document.getElementById('sub_header');
 
@@ -52,34 +52,69 @@ class menuItem {
         this._path = path;
         this._items_arrays = items;
         if (this._items_arrays.length > 0) {
+            // console.log('>0 = '+this._items_arrays.length);
             for (let i = 0; i < this._items_arrays.length; i++) {
+                // console.log(i);
                 this._items_arrays[i]._parent = this;
+                // console.log(this._items_arrays[i]._parent.getTitle);
             }
+        } else {
+            console.log('<0');
         }
+
     }
 
-    get getTitle() { return this._title; }
+    get getTitle() {
+        return this._title;
+    }
 
-    get getPath() { return this._path; }
+    get getPath() {
+        return this._path;
+    }
 
-    get getItems() { return this._items_arrays; }
+    get getItems() {
+        return this._items_arrays;
+    }
 
-    hasChild() { return (this._items_arrays.length>0); }
+    hasChild() {
+        return (this._items_arrays.length>0);
+    }
 
-    hasParent() { return typeof (this._parent) !== 'undefined'; }
+    hasParent() {
+        // return typeof(this._parent.getParent()) !== 'undefined';
+        return typeof (this._parent) !== 'undefined';
+    }
 
-    getParent() { return this._parent; }
+    getParent() {
+        // typeof(item2.getParent())==='undefined'?'NO':item2.getParent().getTitle)
+        return this._parent;
+    }
 }
-//по-сути можно заменить menu на menuItem и всё будет работать
+
 class sqrMenu {
     _items = [];
 
-    addItem(item) { this._items.push(item); }
+    addItem(item) {
+        this._items.push(item);
+    }
 
-    get getItems() { return this._items; }
+    addItems(...items) {
+        for (let i = 0; i < items.length; i++) {
+            this.addItem(items[i]);
+        }
+    }
+
+    get getItems() {
+        return this._items;
+    }
+
+    getMainMenu() {
+        return this._items[0].getItemsAr;
+    }
 }
 
 let menu;
+
 
 function initMenu() {
     menu = new sqrMenu();
@@ -102,9 +137,25 @@ function initMenu() {
             )
         )
     ));
+
+    // logItem(menu.getItems[0], '---');
+    // console.log('________________________________________________');
+    // console.log(menu.getItems.length);
+    // console.log(menu.getMainMenu().length);
+
 }
 
-// noinspection JSUnusedLocalSymbols
+function logItem(item, tab) {
+    tab = tab + '---';
+    for (let j = 0; j < item.getItems.length; j++) {
+        let item2 = item.getItems[j];
+        console.log(tab + item2.getTitle + '---' + item2.getItems.length+' parent is '+(item2.hasParent?item2.getParent().getTitle:'NO'));
+        if (item2.hasChild()) logItem(item2, tab);
+    }
+}
+
+//playground.innerHTML += '<img src="'+src+'" style="position: absolute; margin-left: '+x+'px; margin-top: '+y+'px"  alt="нет рисунка">';
+
 function sqrMenuAdapter(target, sqrMenu) {
     let stringMenu =
         '<ul>'+
@@ -122,14 +173,42 @@ function sqrMenuAdapter(target, sqrMenu) {
     target.innerHTML+=stringMenu;
 }
 
+
+
+function sqrMenuAdapter__(target, sqrMenu) {
+    // <ul>
+    //     <li><a href="#home">Home</a></li>
+    //     <li><a href="#news">News</a></li>
+    //     <li className="dropdown">
+    //         <a href="javascript:void(0)" className="dropbtn">Dropdown</a>
+    //         <div className="dropdown-content">
+    //             <a href="#">Link 1</a>
+    //             <a href="#">Link 2</a>
+    //             <a href="#">Link 3</a>
+    //         </div>
+    //     </li>
+    // </ul>
+
+
+
+    console.log(sqrMenu.getItems.length);
+    target.innerHTML+='<div style="position: absolute">';
+    for (let i = 0; i < sqrMenu.getItems.length; i++) {
+        let item = sqrMenu.getItems[i];
+        if (item.hasChild()) target.innerHTML+=getUiWithListener(item);
+        else target.innerHTML+=getUiForMenuItem(item);
+    }
+    target.innerHTML+='</div>';
+    // target.innerHTML+=getUiForMenuItem(sqrMenu.getItems[0]);
+    // console.log(target.innerHTML+='<span class="data_span">123123123</span>');
+    console.log(sqrMenu);
+
+}
+
 let currentPath;
 
 function sqrMenuAdapter_(target, sqrMenu) {
-    doLoop(target, sqrMenu.getItems);
-}
-
-function sqrMenuAdapterSide(target, sqrMenu) {
-    doLoopSide(target, sqrMenu.getItems);
+    doLoop(target, sqrMenu.getItems)
 }
 
 function doLoop(target, parentArray) {
@@ -140,15 +219,6 @@ function doLoop(target, parentArray) {
         if (item.getPath===currentPath) makePathFromItem(item);
         target.innerHTML+='<a href="'+item.getPath+'">'+item.getTitle+'</a>';
         if (item.hasChild()) doLoop(target, item.getItems);
-    }
-}
-
-function doLoopSide(target, parentArray) {
-    for (let i = 0; i < parentArray.length; i++) {
-        let item = parentArray[i];
-        if (item.hasParent()) console.log(item.getParent().getTitle);
-        target.innerHTML+='<a href="'+item.getPath+'">'+item.getTitle+'</a>';
-        if (item.hasChild()) doLoopSide(target, item.getItems);
     }
 }
 
@@ -177,9 +247,18 @@ function getPath() {
     currentPath = path;
 }
 
+function getUiForMenuItem(item) {
+    return '<a href="'+item.getPath+'">'+item.getTitle+'</a>';
+}
+
+function getUiWithListener(item) {
+    // return '<a onclick='alert(1)">'+item.getTitle+'</a>';
+    let listener = "onClick=alert(1)";
+    return '<a '+listener+'>'+item.getTitle+'</a>';
+}
+
 initMenu();
 getPath();
 sqrMenuAdapter(menuPlace, menu);
 sqrMenuAdapter_(leftMenuPlace, menu);
-sqrMenuAdapterSide(sidePanelPlace, menu);
 

@@ -145,13 +145,57 @@ pre {
 }
 
 
-#menu_main a {
-    display: inline-block;
-    padding: 10px 16px;
-    color: var(--text_color_light);
+
+
+/*для меню*/
+#menu_main ul {
+    list-style-type: none;
+    overflow: hidden;
 }
 
+#menu_main li {
+    float: left;
+}
 
+#menu_main li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+}
+
+#menu_main li a:hover, .dropdown:hover .dropbtn {
+    background-color: var(--color_nice_colored);
+}
+
+#menu_main li.dropdown {
+    display: inline-block;
+}
+
+#menu_main .dropdown-content {
+    padding: 0;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: var(--nice_box_shaddow);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 
 

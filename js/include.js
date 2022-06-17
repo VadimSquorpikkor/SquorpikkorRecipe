@@ -8,10 +8,10 @@ function scrollFunction() {
     let mybutton = document.getElementById("myBtn");
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         mybutton.style.display = "block";
-        document.getElementById("navbar").style.top = "0";
+        document.getElementById("top_slide_panel").style.top = "0";
     } else {
         mybutton.style.display = "none";
-        document.getElementById("navbar").style.top = "-50px";
+        document.getElementById("top_slide_panel").style.top = "-50px";
     }
 }
 
@@ -85,15 +85,15 @@ function initMenu() {
     menu = new sqrMenu();
     menu.addItem(
         new menuItem('Home', '../settings.html',
-            new menuItem('mItem1', '../settings.html'),
-            new menuItem('mItem2', '../settings.html'),
+            new menuItem('Muzz', '../settings.html'),
+            new menuItem('Schematics', '../settings.html'),
             new menuItem('Android', '../_android/android.html',
                 new menuItem('Settings', '../_android/settings.html'),
                 new menuItem('sub3-2', '../settings.html'),
                 new menuItem('sub3-3', '../settings.html')
             ),
-            new menuItem('mItem4', '../settings.html',
-            new menuItem('sub4-1', '../settings.html'),
+            new menuItem('HTML/CSS', '../settings.html',
+            new menuItem('Что-то ещё', '../settings.html'),
             new menuItem('sub4-2', '../settings.html'),
             new menuItem('sub4-3', '../settings.html',
                 new menuItem('subsub4-3-1', '../settings.html'),
@@ -106,40 +106,54 @@ function initMenu() {
 
 // noinspection JSUnusedLocalSymbols
 function sqrMenuAdapter(target, sqrMenu) {
-    let stringMenu =
-        '<ul>'+
-        '<li><a href="#home">Home</a></li>'+
-        '<li><a href="#news">News</a></li>'+
-        '<li class="dropdown">'+
-        '<a href="javascript:void(0)" class="dropbtn">Dropdown</a>'+
-        '<div class="dropdown-content">'+
-        '<a href="#">Link 1</a>'+
-        '<a href="#">Link 2</a>'+
-        '<a href="#">Link 3</a>'+
-        '</div>'+
-        '</li>'+
-        '</ul>';
-    target.innerHTML+=stringMenu;
+    // let stringMenu =
+    //     '<ul>'+
+    //     '<li><a href="#home">Home</a></li>'+
+    //     '<li><a href="#news">News</a></li>'+
+    //     '<li class="dropdown">'+
+    //     '<a href="javascript:void(0)" class="dropbtn">Dropdown</a>'+
+    //     '<div class="dropdown-content">'+
+    //     '<a href="#">Link 1</a>'+
+    //     '<a href="#">Link 2</a>'+
+    //     '<a href="#">Link 3</a>'+
+    //     '</div>'+
+    //     '</li>'+
+    //     '</ul>';
+    let menuItems = sqrMenu.getItems[0].getItems;
+    for (let i = 0; i < menuItems.length; i++) {
+        target.innerHTML+='<a href="'+menuItems[i].getPath+'">'+menuItems[i].getTitle+'</a>';
+    }
 }
 
 let currentPath;
 
-function sqrMenuAdapter_(target, sqrMenu) {
-    doLoop(target, sqrMenu.getItems);
+function sqrLeftMenuAdapter(target, sqrMenu) {
+    doLoop(target, sqrMenu.getItems, -1);
 }
 
 function sqrMenuAdapterSide(target, sqrMenu) {
     doLoopSide(target, sqrMenu.getItems);
 }
 
-function doLoop(target, parentArray) {
+function doLoop(target, parentArray, generation) {
+    generation++;
     for (let i = 0; i < parentArray.length; i++) {
         let item = parentArray[i];
         if (item.hasParent()) console.log(item.getParent().getTitle);
         else console.log('NO PARENT');
-        if (item.getPath===currentPath) makePathFromItem(item);
-        target.innerHTML+='<a href="'+item.getPath+'">'+item.getTitle+'</a>';
-        if (item.hasChild()) doLoop(target, item.getItems);
+        if (item.getPath===currentPath) makePathFromItem(item);/*todo selected menu item*/
+        target.innerHTML+='<a '+getStyle(generation)+' href="'+item.getPath+'">'+item.getTitle+'</a>';
+        if (item.hasChild()) doLoop(target, item.getItems, generation);
+    }
+}
+
+function getStyle(generation) {
+    switch (generation) {
+        case 0: return 'class=zeroGeneration';
+        case 1: return 'class=firstGeneration';
+        case 2: return 'class=secondGeneration';
+        case 3: return 'class=thirdGeneration';
+        default: return 'class=thirdGeneration';
     }
 }
 
@@ -180,6 +194,6 @@ function getPath() {
 initMenu();
 getPath();
 sqrMenuAdapter(menuPlace, menu);
-sqrMenuAdapter_(leftMenuPlace, menu);
+sqrLeftMenuAdapter(leftMenuPlace, menu);
 sqrMenuAdapterSide(sidePanelPlace, menu);
 

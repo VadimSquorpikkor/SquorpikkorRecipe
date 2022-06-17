@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Settings</title>
+
+    <style type="text/css">
+        div {
+            line-height: 10;
+        }
+        .top, .left, .right, .content {
+            padding: 20px;
+        }
+        .top {
+            background-color: #4CAF50;
+            z-index: 10;
+        }
+        .left1 {
+            background-color: #0077aa;
+
+            position: sticky;
+            float: left;
+            bottom: 0;
+            overflow: auto;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding-top: 20px;
+            z-index: 1;
+        }
+        .left {
+            background-color: #0077aa;
+
+            position: fixed;
+            margin-top: 100px;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 180px;
+            overflow-y: scroll;
+            z-index: 1;
+        }
+        .right {
+            background-color: #f5a208;
+            float: right;
+            bottom: 0;
+        }
+        .content {
+            padding-left: 180px;
+            background-color: #dc0d0c;
+            max-width: 1000px;
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="top">top</div>
+<div class="left">
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+</div>
+<div class="right">top</div>
+<div class="content">
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+    top<br>
+</div>
+
+</body>
+</html>

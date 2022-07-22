@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Settings</title>
+
+    <style type="text/css">
+        #sidebar {
+            padding: 0;
+            overflow: auto;
+            /*overflow: auto;*/
+            /*overflow-x: auto;*/
+
+
+            font-size: 80px;
+            left: 0;
+            top: 40px;
+            position: fixed;
+            z-index: 0;
+            height: 100%;
+            width: 200px;
+            background-color: black;
+            z-index: 999; // Here we give the sidebar a larger z-index resulting in it being showed on top of the content.
+        }
+        /*#sidebar {
+            float: left;
+            padding: 0;
+            overflow-y: auto;
+
+            left: 0;
+            top: 40px;
+            position: fixed;
+            z-index: 0;
+            height: 100%;
+            width: 450px;
+            background-color: #444444;
+            z-index: 2;
+        }*/
+        #dropdown {
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            width: 350px;
+            z-index: 10;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 10px;
+            display: block;
+            color: #fff;
+            text-indent: 10px;
+            background-color: #0000aa;
+            border-radius: 20px;
+        }
+
+        #content {
+
+            position: absolute;
+            top: 40px;
+            left: 200px;
+            right: 0px;
+            min-height: 300px;
+            background-color: green;
+            display: block;
+            z-index: 1; // Here we give the content a lower z-index resulting in it being showed beneath the sidebar.
+        }
+
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 40px;
+            background-color: grey;
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<div id="navbar"></div>
+<div id="sidebar">
+    <div id="dropdown">
+        This is a very long sentance that should be visible in its entirety.
+    </div>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+    a<br>
+</div>
+<div id="content"></div>
+
+</body>
+</html>

@@ -24,31 +24,29 @@
         }
         .left {
             background-color: #0077aa;
-            padding-top: 100px;
             position: fixed;
-            margin-top: 0;
-            top: 0;
-            left: 0;
-            bottom: 0;
             width: 180px;
-            overflow-y: scroll;
+            height: 100%;
+            top: 180px;
+            overflow-y: auto;
             z-index: 1;
         }
         .right {
             background-color: #f5a208;
             padding-top: 140px;
-            position: fixed;
-            margin-top: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
+            /*position: fixed;*/
+            /*margin-top: 0;*/
+            /*top: 0;*/
+            /*right: 0;*/
+            /*bottom: 0;*/
+            float: left;
             left: 1000px;
             overflow-y: scroll;
             z-index: 1;
         }
         .content {
             line-height: 1.5;
-            padding-left: 240px;
+            margin-left: 220px;
             background-color: #dc0d0c;
             max-width: 800px;
             float: left;
@@ -83,7 +81,7 @@
 
 <div class="top">top</div>
 
-<div class="left">
+<div id="left" class="left">
     left<br>
     left<br>
     left<br>
@@ -93,6 +91,9 @@
     left<br>
     left<br>
 </div>
+
+<div class="left_and_right">
+
 
 <div class="right">right</div>
 
@@ -163,8 +164,23 @@
 
 </div>
 
+</div>
 
+<script type="text/javascript">
+    window.onscroll = function () {
+        scroll()
+    };
+    function scroll() {
+        if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            console.log('0')
+            document.getElementById("left").style.top = "0";
+        } else {
+            console.log('100')
+            document.getElementById("left").style.top = "180px";
+        }
+    }
 
+</script>
 
 <!--</div>-->
 </body>

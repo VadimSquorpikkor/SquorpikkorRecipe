@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta charset="UTF-8">
     <title>Settings</title>
-    <link href="../../css/prism.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link href="../../../css/prism.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
     <!--    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">-->
-<!--    <script type="text/javascript" src="js/include.js"></script>-->
-    <script src="../../js/prism.js"></script>
-    <script src="../../js/chords.js"></script>
+    <!--    <script type="text/javascript" src="js/include.js"></script>-->
+    <script src="../../../js/prism.js"></script>
 </head>
 
 <body>
@@ -31,7 +30,7 @@
 
 <div class="header">
     <div id="menu_main">
-<!--        <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
+        <!--        <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
         <a class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</a>
         <div id="logo_text">Squorpikkor Recipes</div>
     </div>
@@ -45,22 +44,19 @@
 
 <div class="main_div">
 
-<div id="menuPanel" class="leftMenuPanel"></div>
+    <div id="menuPanel" class="leftMenuPanel"></div>
 
 
-<div id="content_div" class="content_div">
+    <div id="content_div" class="content_div">
 
-    <h1>Settings</h1>
+        <h1>Settings</h1>
 
-<!--    <div onclick="drawChord(new Chord('0112200', 'Am'))" onload="drawChord(new Chord('0112200', 'Am'))">0</div>-->
-<!--    <div onload="javascript:alert('er')">1</div>-->
+        <!--<img src="imgs/a.jpg"/>-->
 
-    <!--<img src="imgs/a.jpg"/>-->
-
-    <div class="nice_details">
-        <details>
-            <summary>SettingsActivity. Базовый код</summary>
-            <pre><code class="language-java">
+        <div class="nice_details">
+            <details>
+                <summary>SettingsActivity. Базовый код</summary>
+                <pre><code class="language-java">
 public class SettingsActivity extends AppCompatActivity {
 
 @Override
@@ -86,7 +82,7 @@ public static class SettingsFragment extends PreferenceFragmentCompat {
 }
             </code></pre>
 
-            <pre><code class="language-xml">
+                <pre><code class="language-xml">
 &lt;?xml version="1.0" encoding="utf-8"?>
 &lt;androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -101,7 +97,7 @@ public static class SettingsFragment extends PreferenceFragmentCompat {
 &lt;/androidx.constraintlayout.widget.ConstraintLayout>
             </code></pre>
 
-            <pre><code class="language-xml">
+                <pre><code class="language-xml">
 &lt;PreferenceScreen
         xmlns:app="http://schemas.android.com/apk/res-auto">
     &lt;SwitchPreferenceCompat
@@ -113,33 +109,33 @@ public static class SettingsFragment extends PreferenceFragmentCompat {
             app:summary="Report technical issues or suggest new features"/>
 &lt;/PreferenceScreen>
             </code></pre>
-        </details>
-    </div>
+            </details>
+        </div>
 
-    <div class="nice_details">
-        <details>
-            <summary>отдельно можно задать тему для настроек(!)</summary>
-            <pre><code class="language-xml">
+        <div class="nice_details">
+            <details>
+                <summary>отдельно можно задать тему для настроек(!)</summary>
+                <pre><code class="language-xml">
 &lt;resources xmlns:tools="http://schemas.android.com/tools">
             &lt;!-- Base application theme. -->
     &lt;style name="Theme.KursPoAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         //...
         &lt;item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-    &lt;/style>
+                    &lt;/style>
 &lt;/resources>
     </code></pre>
-        </details>
-    </div>
+            </details>
+        </div>
 
-    <div class="attention_block">если используется onSharedPreferenceListener, то при закрытии активити от него нужно
-        отписаться (в onDestroy)
-    </div>
+        <div class="attention_block">если используется onSharedPreferenceListener, то при закрытии активити от него нужно
+            отписаться (в onDestroy)
+        </div>
 
-    <div class="nice_details">
-        <details>
-            <summary>Отслеживать изменения настроек:</summary>
+        <div class="nice_details">
+            <details>
+                <summary>Отслеживать изменения настроек:</summary>
 
-            <pre><code class="language-java">
+                <pre><code class="language-java">
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     SharedPreferences preferences;
@@ -170,17 +166,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 }
     </code></pre>
 
-        </details>
-    </div>
+            </details>
+        </div>
 
 
-    <div class="nice_details">
-        <details>
-            <summary>OnPreferencesChangeListener</summary>
+        <div class="nice_details">
+            <details>
+                <summary>OnPreferencesChangeListener</summary>
 
-            OnPreferencesChangeListener (не путать с OnSharedPreferencesChangeListener) отслеживает изменение конкретной
-            настройки. Вызывается ДО ВЫЗОВА OnSharedPrChL
-            <pre><code class="language-java">
+                OnPreferencesChangeListener (не путать с OnSharedPreferencesChangeListener) отслеживает изменение конкретной
+                настройки. Вызывается ДО ВЫЗОВА OnSharedPrChL
+                <pre><code class="language-java">
 public class MySettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
     //...
     @Override
@@ -189,9 +185,9 @@ public class MySettingsFragment extends PreferenceFragmentCompat implements Pref
     }
 }
     </code></pre>
-            если возвращает false, то это значение не будет сохранено в SharedPref
-            Можно проверять введенные значения!:
-            <pre><code class="language-java">
+                если возвращает false, то это значение не будет сохранено в SharedPref
+                Можно проверять введенные значения!:
+                <pre><code class="language-java">
 public class MySettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -216,8 +212,8 @@ public class MySettingsFragment extends PreferenceFragmentCompat implements Pref
     }
 }
     </code></pre>
-            Мне больше нравится такое делать через анонимный класс (аккуратнее получается):
-            <pre><code class="language-java">
+                Мне больше нравится такое делать через анонимный класс (аккуратнее получается):
+                <pre><code class="language-java">
 public class MySettingsFragment extends PreferenceFragmentCompat {
 
     @Override
@@ -239,8 +235,8 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
     }
 }
     </code></pre>
-            А ещё лучше так (когда много настроек, можно сделать общие всякие проверки):
-            <pre><code class="language-java">
+                А ещё лучше так (когда много настроек, можно сделать общие всякие проверки):
+                <pre><code class="language-java">
 public class MySettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -265,13 +261,13 @@ public class MySettingsFragment extends PreferenceFragmentCompat {
 }
     </code></pre>
 
-        </details>
-    </div>
-    <div class="nice_details">
-        <details>
-            <summary>Пример рабочей активности настроек:</summary>
+            </details>
+        </div>
+        <div class="nice_details">
+            <details>
+                <summary>Пример рабочей активности настроек:</summary>
 
-            <pre><code class="language-java">
+                <pre><code class="language-java">
 public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -358,8 +354,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 }
     </code></pre>
-            xml:
-            <pre><code class="language-xml">
+                xml:
+                <pre><code class="language-xml">
 &lt;PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto">
     &lt;PreferenceCategory app:title="@string/set_appearance">
@@ -410,7 +406,7 @@ public class SettingsActivity extends AppCompatActivity {
 &lt;/PreferenceScreen>
     </code></pre>
 
-            <pre><code class="language-xml">
+                <pre><code class="language-xml">
 &lt;resources>
     &lt;string-array name="themes_entries">
         &lt;item>@string/light_theme&lt;/item>
@@ -427,18 +423,18 @@ public class SettingsActivity extends AppCompatActivity {
 &lt;/resources>
     </code></pre>
 
-            <pre><code class="language-xml">
+                <pre><code class="language-xml">
 &lt;string name="wrong_param">Некоректное значение!&lt;/string>
 &lt;string name="should_be_more_than">Число должно быть больше %d&lt;/string>
 &lt;string name="should_be_more_less">Число должно быть меньше %d</string>
     </code></pre>
 
-        </details>
+            </details>
+        </div>
+
     </div>
-
-</div>
 </div>
 
-<script type="text/javascript" src="../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include.js"></script>
 </body>
 </html>

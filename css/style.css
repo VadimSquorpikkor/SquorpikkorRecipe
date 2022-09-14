@@ -97,8 +97,16 @@ pre {
     /*background-color: var(--light_gray_background_color);*/
 }
 
-.leftMenuPanel a {
+.leftMenuPanel a, .leftMenuPanel span {
     display: block;
+}
+.leftMenuPanel a {
+
+}
+
+
+.zeroGeneration, .firstGeneration, .secondGeneration, .thirdGeneration {
+    color: var(--color_nice_colored);
 }
 
 .zeroGeneration {
@@ -107,7 +115,7 @@ pre {
 .firstGeneration {
     font-size: 22px;
     padding-left: 20px;
-    text-decoration: underline #4CAF50;
+    /*text-decoration: underline #4CAF50;*/
 }
 .secondGeneration {
     font-size: 18px;

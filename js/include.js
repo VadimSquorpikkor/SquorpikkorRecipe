@@ -41,7 +41,7 @@ let headStrokeMenuPlace = document.getElementById('sub_header');
 
 console.log(menuPlace);
 
-class menuItem {
+class itm {
     _title;
     _path;
     _items_arrays = [];
@@ -58,6 +58,11 @@ class menuItem {
         }
     }
 
+    //вариант без использования дочернего класса: menuItem.chapter('Title', arr[])
+    // static chapter(title, ...items) {
+    //     return new menuItem(title, '', ...items);
+    // }
+
     get getTitle() { return this._title; }
 
     get getPath() { return this._path; }
@@ -70,6 +75,14 @@ class menuItem {
 
     getParent() { return this._parent; }
 }
+
+class chapter extends itm {
+    constructor(title, ...items) {
+        super(title, '', ...items);
+    }
+}
+
+
 //по-сути можно заменить menu на menuItem и всё будет работать
 class sqrMenu {
     _items = [];
@@ -84,21 +97,21 @@ let menu;
 function initMenu() {
     menu = new sqrMenu();
     menu.addItem(
-        new menuItem('Home', '../settings.html',
-            new menuItem('Muzz', '../settings.html'),
-            new menuItem('Schematics', '../settings.html'),
-            new menuItem('Android', '../_android/android.html',
-                new menuItem('Settings', '../_android/settings.html'),
-                new menuItem('sub3-2', '../settings.html'),
-                new menuItem('sub3-3', '../settings.html')
+        new chapter('Home',
+            new chapter('Muzz'),
+            new chapter('Schematics'),
+            new chapter('Android',
+                new itm('Settings', '../_android/settings.html'),
+                new itm('sub3-2', '../settings.html'),
+                new itm('sub3-3', '../settings.html')
             ),
-            new menuItem('HTML/CSS', '../settings.html',
-            new menuItem('Что-то ещё', '../settings.html'),
-            new menuItem('sub4-2', '../settings.html'),
-            new menuItem('sub4-3', '../settings.html',
-                new menuItem('subsub4-3-1', '../settings.html'),
-                new menuItem('subsub4-3-2', '../settings.html'),
-                new menuItem('subsub4-3-3', '../settings.html')
+            new chapter('HTML/CSS',
+                new itm('Что-то ещё', '../settings.html'),
+                new itm('sub4-2', '../settings.html'),
+                new chapter('sub4-3',
+                    new itm('subsub4-3-1', '../settings.html'),
+                    new itm('subsub4-3-2', '../settings.html'),
+                    new itm('subsub4-3-3', '../settings.html')
             )
         )
     ));
@@ -142,7 +155,8 @@ function doLoop(target, parentArray, generation) {
         if (item.hasParent()) console.log(item.getParent().getTitle);
         else console.log('NO PARENT');
         if (item.getPath===currentPath) makePathFromItem(item);/*todo selected menu item*/
-        target.innerHTML+='<a '+getStyle(generation)+' href="'+item.getPath+'">'+item.getTitle+'</a>';
+        if (item.getPath==='') target.innerHTML+='<span '+getStyle(generation)+'>'+item.getTitle+'</span>';
+        else target.innerHTML+='<a '+getStyle(generation)+' href="'+item.getPath+'">'+item.getTitle+'</a>';
         if (item.hasChild()) doLoop(target, item.getItems, generation);
     }
 }

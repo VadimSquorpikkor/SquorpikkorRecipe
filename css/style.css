@@ -27,6 +27,11 @@ h1 {
     color: var(--text_color_colored);
     margin: 4px;
 }
+h2 {
+    font-size: 14px;
+    color: var(--text_color_colored);
+    margin: 4px;
+}
 div {
     /*background-color: var(--background_color);*/
     padding: 8px;

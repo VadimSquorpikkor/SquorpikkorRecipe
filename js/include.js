@@ -33,6 +33,26 @@ function closeNav() {
     document.getElementById("mySidepanel").style.width = "0";
     // document.getElementById("content_div").style.marginLeft = "auto";
 }
+
+
+
+
+/***/
+function getHomeCount() {
+    //console.log(window.location.href);
+    let ar = window.location.href.split('/_home/');
+    let path = ar[ar.length-1];
+    let count = path.split("/").length-1;
+    console.log("count = "+count);
+    let s = "";
+    for (let i = 0; i < count; i++) {
+        s += "../"
+    }
+    return s;
+    // path = '../'+path;
+    // console.log(path);
+    // currentPath = path;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 let menuPlace = document.getElementById('menu_main');
 let sidePanelPlace = document.getElementById('mySidepanel');
@@ -49,7 +69,8 @@ class itm {
 
     constructor(title, path, ...items) {
         this._title = title;
-        this._path = path;
+        if (path==='') this._path = path;
+        else this._path = getHomeCount()+path;
         this._items_arrays = items;
         if (this._items_arrays.length > 0) {
             for (let i = 0; i < this._items_arrays.length; i++) {
@@ -94,27 +115,47 @@ class sqrMenu {
 
 let menu;
 
+/**
+ * 1. Мулька 1 -- путь пишем без "../", префикс будет добавляться автоматом. Вот зачем была вся заморочка: если кликнуть
+ * по ссылке из документа расположенного по путь "home/folder/1.html" и из документа расположенного по пути
+ * "home/folder/folder2/1.html", то путь для ссылки (например home/target.html) в меню будет для этих двух документов
+ * разным (у первого будет "../target.html", у второго "../../target.html"), а значит нужно или располагать все
+ * документы на одинаковой глубине от домашней папки, либо прописывать пути для каждого документа индивидуально (что
+ * вообще не вариант). Выбран 3-й вариант: префикс "../" дописывается методом getHomeCount(), который добавляет префикс
+ * столько раз, сколько глубина у текущей страницы (для первого документа добавит "../", для второго "../../")
+ *
+ * */
 function initMenu() {
     menu = new sqrMenu();
     menu.addItem(
         new chapter('Home',
-            new chapter('Muzz'),
+            new chapter('Muzz',
+                new chapter('Oasis',
+                    new itm('Wonderwall', 'muzz/oasis/wonderwall.html')
+                ),
+                new chapter('Simon & Garfunkel',
+                    new itm('Mrs. Robinson', 'muzz/s_and_g/mrs_robinson.html')
+                ),
+                new chapter('Extreme',
+                    new itm('More Than Words', 'muzz/extreme/more_than_words.html')
+                )
+            ),
             new chapter('Schematics'),
             new chapter('Android',
-                new itm('Settings', '../_android/settings.html'),
-                new itm('sub3-2', '../settings.html'),
-                new itm('sub3-3', '../settings.html')
+                new itm('Settings', '_android/settings.html'),
+                new itm('sub3-2', 'settings.html'),
+                new itm('sub3-3', 'settings.html')
             ),
             new chapter('HTML/CSS',
-                new itm('Что-то ещё', '../settings.html'),
-                new itm('sub4-2', '../settings.html'),
+                new itm('Что-то ещё', 'settings.html'),
+                new itm('sub4-2', 'settings.html'),
                 new chapter('sub4-3',
-                    new itm('subsub4-3-1', '../settings.html'),
-                    new itm('subsub4-3-2', '../settings.html'),
-                    new itm('subsub4-3-3', '../settings.html')
+                    new itm('subsub4-3-1', 'settings.html'),
+                    new itm('subsub4-3-2', 'settings.html'),
+                    new itm('subsub4-3-3', 'settings.html')
+                )
             )
-        )
-    ));
+        ));
 }
 
 // noinspection JSUnusedLocalSymbols

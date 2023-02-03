@@ -99,11 +99,15 @@ pre {
     float: left;
     width: 192px;
     height: 100vh;
+    color: var(--text_color_colored);
+    /*font-size: 14px;*/
+    /*padding-left: 60px;*/
+
     /*background-color: var(--light_gray_background_color);*/
 }
 
 .leftMenuPanel a, .leftMenuPanel span {
-    display: block;
+    /*display: block;*/
 }
 .leftMenuPanel a {
 
@@ -131,9 +135,9 @@ pre {
     padding-left: 60px;
 }
 
-.leftMenuPanel ul {
-    color: var(--text_color_colored);
-}
+/*.leftMenuPanel ul {*/
+/*    color: var(--text_color_colored);*/
+/*}*/
 
 
 
@@ -251,6 +255,7 @@ pre {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    text-align: justify;
 }
 
 /* Style the button that is used to open the sidepanel */
@@ -268,3 +273,32 @@ pre {
     background-color: #444;
 }
 
+details a {
+    font-size: 12px;
+}
+details {
+    /*background-color: var(--background_color);*/
+    /*text-indent: 20px;*/
+    /*border: 1px solid #aaa;*/
+    border-radius: 4px;
+    padding: 5px;
+    margin: 2px;
+    /*padding: 0.5em 0.5em 0;*/
+}
+
+summary {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 2px;
+        cursor: pointer;
+        display: list-item;
+    /*margin: -0.5em -0.5em 0;*/
+    /*padding: 0.5em;*/
+}
+/*details > summary::before {*/
+/*    content: '▶️';*/
+/*}*/
+
+/*details[open] > summary::before {*/
+/*    content: '🔽';*/
+/*}*/

@@ -5,25 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta charset="UTF-8">
     <title>Settings</title>
-    <link href="../../css/prism.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <!--    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">-->
-<!--    <script type="text/javascript" src="js/include.js"></script>-->
-    <script src="../../js/prism.js"></script>
-    <script src="../../js/chords.js"></script>
+    <link href="../../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="/js/prism.js"></script>
 </head>
 
 <body>
 
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
 
-
-
-<!--<button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
-
-
-<div id="top_slide_panel">
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
     <a href="#home">Home</a>
     <a href="#news">News</a>
     <a href="#contact">Contact</a>
@@ -31,15 +25,11 @@
 
 <div class="header">
     <div id="menu_main">
-<!--        <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
-        <a class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</a>
-        <div id="logo_text">Squorpikkor Recipes</div>
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
     </div>
 </div>
 
-<div id="sub_header" class="sub_header"></div>
-
-<div id="mySidepanel" class="sidepanel">
+<div id="mySidepanel" class="sidePanel">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
 
@@ -442,6 +432,7 @@ public class SettingsActivity extends AppCompatActivity {
 </div>
 </div>
 
-<script type="text/javascript" src="../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
 </body>
 </html>

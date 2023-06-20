@@ -5,7 +5,7 @@ window.onscroll = function () {
 
 function scrollFunction() {
     // console.log(window.innerWidth);
-    let mybutton = document.getElementById("myBtn");
+    let mybutton = document.getElementById("backToTopButton");
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         mybutton.style.display = "block";
         document.getElementById("top_slide_panel").style.top = "0";

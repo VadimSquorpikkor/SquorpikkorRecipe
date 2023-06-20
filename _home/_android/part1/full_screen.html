@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link href="../../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="/js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+
+    <div id="content_div" class="content_div">
+        <h1>TITLE</h1>
+
+        <div class="nice_details">
+            <details>
+                <summary>Так в гайде андройд</summary>
+                <pre><code class="language-java">
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ToggleButton button = findViewById(R.id.fullButton);
+
+        WindowInsetsControllerCompat windowInsetsController =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        // Configure the behavior of the hidden system bars.
+        windowInsetsController.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        );
+
+        // Add a listener to update the behavior of the toggle fullscreen button when
+        // the system bars are hidden or revealed.
+        getWindow().getDecorView().setOnApplyWindowInsetsListener((view, windowInsets) -> {
+            // You can hide the caption bar even when the other system bars are visible.
+            // To account for this, explicitly check the visibility of navigationBars()
+            // and statusBars() rather than checking the visibility of systemBars().
+            button.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                // Show both the status bar and the navigation bar.
+                if (isChecked) windowInsetsController.show(WindowInsetsCompat.Type.systemBars());
+                else // Hide both the status bar and the navigation bar.
+                    windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+            });
+            return view.onApplyWindowInsets(windowInsets);
+        });
+
+    }
+
+
+}
+            </code></pre>
+            </details>
+        </div>
+
+
+        <div class="nice_details">
+            <details>
+                <summary>Лучше так</summary>
+                <pre><code class="language-java">
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ToggleButton button = findViewById(R.id.fullButton);
+
+        WindowInsetsControllerCompat windowInsetsController =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        // Configure the behavior of the hidden system bars.
+        windowInsetsController.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        );
+
+        // Add a listener to update the behavior of the toggle fullscreen button when
+        // the system bars are hidden or revealed.
+        getWindow().getDecorView().setOnApplyWindowInsetsListener(View::onApplyWindowInsets);
+
+        button.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Show both the status bar and the navigation bar.
+            if (isChecked) windowInsetsController.show(WindowInsetsCompat.Type.systemBars());
+            else // Hide both the status bar and the navigation bar.
+                windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        });
+    }
+}
+            </code></pre>
+            </details>
+        </div>
+
+
+        <div class="nice_details">
+            <details open>
+                <summary>Так в фрагменте (управление через обсервер):</summary>
+                <pre><code class="language-java">
+@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+    //...
+    //Для работы FullScreen всего приложения
+    WindowInsetsControllerCompat windowInsetsController =
+                        WindowCompat.getInsetsController(requireActivity().getWindow(),
+                        requireActivity().getWindow().getDecorView());
+    // Configure the behavior of the hidden system bars.
+    windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat
+                        .BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+    mViewModel.getIsAppFullScreen().observe(getViewLifecycleOwner(), fs -> {
+        // Hide both the status bar and the navigation bar.
+        if (fs) windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+        // Show both the status bar and the navigation bar.
+        else windowInsetsController.show(WindowInsetsCompat.Type.systemBars());
+    });
+
+    //...
+        return view;
+}
+            </code></pre>
+            </details>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
+</body>
+</html>

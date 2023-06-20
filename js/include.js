@@ -5,7 +5,7 @@ window.onscroll = function () {
 
 function scrollFunction() {
     // console.log(window.innerWidth);
-    let mybutton = document.getElementById("myBtn");
+    let mybutton = document.getElementById("backToTopButton");
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         mybutton.style.display = "block";
         document.getElementById("top_slide_panel").style.top = "0";
@@ -23,7 +23,7 @@ function topFunction() {
 
 /* Set the width of the sidebar to 250px (show it) */
 function openNav() {
-    document.getElementById("mySidepanel").style.width = "250px";
+    document.getElementById("mySidepanel").style.width = "450px";
     // console.log(document.getElementById("content_div").style.marginLeft.valueOf());
     // document.getElementById("content_div").style.marginLeft = "250px";
 }

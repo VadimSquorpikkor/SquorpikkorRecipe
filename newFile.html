@@ -2,47 +2,63 @@
 
 <html lang="ru">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=0.8" charset="UTF-8">
-    <title>TITLE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Settings</title>
     <link href="css/prism.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-    <script type="text/javascript" src="js/include.js"></script>
-    <script src="js/prism.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="/js/prism.js"></script>
 </head>
 
 <body>
 
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
 
 <div class="header">
-    Squorpikkor Recipes
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
 </div>
 
-<div class="sub_header">
-    Android / Settings
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 </div>
 
-<div class="content_div">
-    <h1>TITLE</h1>
+<div class="main_div">
 
-    <img src="imgs/a.jpg"/>
+    <div id="menuPanel" class="leftMenuPanel"></div>
 
-    <div class="nice_details">
-        <details>
-            <summary>SUMMARY</summary>
-            <pre><code class="language-java">
+
+    <div id="content_div" class="content_div">
+        <h1>TITLE</h1>
+
+        <div class="nice_details">
+            <details>
+                <summary>SUMMARY</summary>
+                <pre><code class="language-java">
 
             </code></pre>
-        </details>
+            </details>
+        </div>
+
+        <figure>
+            <img src="/imgs/a.jpg" alt="werwer">
+            <figcaption>Рисунок 1</figcaption>
+        </figure>
+
     </div>
-
-    <figure>
-        <img src="../imgs/bdkg/1.jpg" alt="werwer">
-        <figcaption>Рисунок 1</figcaption>
-    </figure>
-
 </div>
+
+<script type="text/javascript" src="js/include.js"></script>
+<script type="text/javascript" src="js/include2.js"></script>
 </body>
 </html>

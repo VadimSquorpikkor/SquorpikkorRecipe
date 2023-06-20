@@ -17,7 +17,6 @@
 }
 
 body {
-    /*background-color: var(--background_color);*/
     font-family: Arial, serif;
     font-size: 16px;
     background-color: var(--background_color_light_gray);
@@ -33,7 +32,6 @@ h2 {
     margin: 4px;
 }
 div {
-    /*background-color: var(--background_color);*/
     padding: 8px;
 }
 .header {
@@ -41,11 +39,7 @@ div {
     background-color: var(--background_color_dark);
     color: var(--text_color_light);
 }
-.sub_header {
-    background-color: var(--background_color_light_gray);
-    color: var(--text_color_colored);
-    border-bottom: var(--border_style);
-}
+
 .content_div {
     background-color: var(--background_color);
     margin-left: 220px;
@@ -62,7 +56,6 @@ div {
     border-radius: 4px;
 }
 .nice_details summary {
-    padding: 8px;
     background-color: var(--background_color_light_gray);
     cursor: pointer;
 }
@@ -83,6 +76,9 @@ pre {
     .leftMenuPanel {
         display: none;
     }
+    .menu_button {
+        display: none;
+    }
     .content_div {
         margin: 0 auto;
     }
@@ -97,51 +93,31 @@ pre {
 .leftMenuPanel {
     position: fixed;
     float: left;
-    width: 192px;
+    width: 292px;
     height: 100vh;
     color: var(--text_color_colored);
-    /*font-size: 14px;*/
-    /*padding-left: 60px;*/
-
-    /*background-color: var(--light_gray_background_color);*/
 }
 
-.leftMenuPanel a, .leftMenuPanel span {
-    /*display: block;*/
+details a {
+    font-size: 12px;
 }
-.leftMenuPanel a {
-
-}
-
-
-.zeroGeneration, .firstGeneration, .secondGeneration, .thirdGeneration {
-    color: var(--color_nice_colored);
+details {
+    border-radius: 4px;
 }
 
-.zeroGeneration {
-    font-size: 26px;
+details ul{
+    margin: 2px 2px 2px 20px;
 }
-.firstGeneration {
-    font-size: 22px;
-    padding-left: 20px;
-    /*text-decoration: underline #4CAF50;*/
-}
-.secondGeneration {
-    font-size: 18px;
-    padding-left: 40px;
-}
-.thirdGeneration {
+
+summary {
+    padding: 10px;
     font-size: 14px;
-    padding-left: 60px;
+    font-weight: bold;
+    cursor: pointer;
+    display: list-item;
 }
 
-/*.leftMenuPanel ul {*/
-/*    color: var(--text_color_colored);*/
-/*}*/
-
-
-
-#myBtn {
+#backToTopButton {
     display: none; /* Hidden by default */
     position: fixed; /* Fixed/sticky position */
     bottom: 20px; /* Place the button at the bottom of the page */
@@ -157,7 +133,7 @@ pre {
     font-size: 16px; /* Increase font size */
 }
 
-#myBtn:hover {
+#backToTopButton:hover {
     background-color: #555; /* Add a dark-grey background on hover */
 }
 
@@ -169,23 +145,8 @@ pre {
 }
 
 
-
-
-
-
-#logo_text {
-    padding: 10px 16px;
-    float: left;
-}
-
-
-
-
-
-
-
 /*для панельки которая вываливается сверху*/
-#top_slide_panel {
+.top_slide_panel {
     background-color: var(--background_color_dark); /* Black background color */
     position: fixed; /* Make it stick/fixed */
     top: -50px; /* Hide the navbar 50 px outside of the top view */
@@ -195,7 +156,7 @@ pre {
 }
 
 /* Style the navbar links */
-#top_slide_panel a {
+.top_slide_panel a {
     float: left;
     display: block;
     color: white;
@@ -204,7 +165,7 @@ pre {
     text-decoration: none;
 }
 
-#top_slide_panel a:hover {
+.top_slide_panel a:hover {
     background-color: #ddd;
     color: black;
 }
@@ -217,9 +178,9 @@ pre {
 
 
 
-
+/* Боковое выезжающее меню */
 /* The sidepanel menu */
-.sidepanel {
+.sidePanel {
     padding-left: 0;
     padding-right: 0;
     height: 100%; /* Specify a height */
@@ -231,25 +192,26 @@ pre {
     background-color: var(--background_color_light_gray);/*#111;*/ /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+    transition: 0.2s; /* 0.5 second transition effect to slide in the sidepanel */
+    overflow-y: scroll;
 }
 
 /* The sidepanel links */
-.sidepanel a {
-    padding: 8px 8px 8px 32px;
+.sidePanel a {
+    padding: 2px 2px 2px 20px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 12px;
     color: #818181;
     display: block;
     transition: 0.3s;
 }
 /* When you mouse over the navigation links, change their color */
-.sidepanel a:hover {
-    color: #f1f1f1;
+.sidePanel a:hover {
+    color: var(--text_color_colored);
 }
 
 /* Position and style the close button (top right corner) */
-.sidepanel .closebtn {
+.sidePanel .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
@@ -259,46 +221,13 @@ pre {
 }
 
 /* Style the button that is used to open the sidepanel */
-.openbtn {
-    float: left;
-    font-size: 16px;
+.menu_button {
     cursor: pointer;
-    background-color: #111;
-    color: white;
-    padding: 10px 15px;
-    border: none;
+    display: none;
 }
 
 .openbtn:hover {
     background-color: #444;
 }
 
-details a {
-    font-size: 12px;
-}
-details {
-    /*background-color: var(--background_color);*/
-    /*text-indent: 20px;*/
-    /*border: 1px solid #aaa;*/
-    border-radius: 4px;
-    padding: 5px;
-    margin: 2px;
-    /*padding: 0.5em 0.5em 0;*/
-}
 
-summary {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 2px;
-        cursor: pointer;
-        display: list-item;
-    /*margin: -0.5em -0.5em 0;*/
-    /*padding: 0.5em;*/
-}
-/*details > summary::before {*/
-/*    content: '▶️';*/
-/*}*/
-
-/*details[open] > summary::before {*/
-/*    content: '🔽';*/
-/*}*/

@@ -1,18 +1,12 @@
 class Chord {
-
-    strings = [];
     name;
     _s;
+    min;
 
     constructor(s, name) {
-        // for (let sKey in s) {
-        //     this.strings.push(sKey);
-        // }
-        // this.strings = s.split('');
         this._s = s;
         this._name = name;
     }
-
 
     get s() {
         return this._s;
@@ -22,10 +16,6 @@ class Chord {
         return this._name;
     }
 
-    get strArray() {
-        return this.strings;
-        // return ['1','2','0','5','0','5'];
-    }
 }
 
 window.onLoad = function(event) {
@@ -99,57 +89,96 @@ const S_HEIGHT = 20;
 const S_WIDTH = 50;
 
 /**Сколько ладов занимает аккорд*/
-function getChordCount(chord) {
+function getChordCount_old(chord) {
 
     let min;
     let max;
     if (Number.isInteger(Number(chord.s[0]))) {
         min = Number(chord.s[0]);
         max = Number(chord.s[0]);
+        // min = 24;
+        // max = 0;
+
     }
     // for (const s in chord.s) {
     for (let i = 1; i < chord.s.length; i++) {
         let s = chord.s[i];
         console.log(s);
         if (Number.isInteger(Number(s))) {
-            console.log("is = "+s);
+            // console.log("is = "+s);
             if (s > max) max = s;
             if (s === -1) min = s;
             else if (s<min) min = s;
         }
     }
     console.log("min="+min+" max="+max);
-    return max-min;
+    //нулевой лад это открытая струна, и точка не ставится, а значит и лада нулевого нет
+    if (min===0) return max-min
+    else return max-min+1;
+}
+
+/**Сколько ладов занимает аккорд*/
+function getChordCount(chord) {
+    // let qqq = "";
+    // for (let i = 0; i < chord.s.length; i++) {
+    //     qqq+=chord.s[i];
+    // }
+    // console.log(qqq);
+
+    let min = 24;
+    let max = 0;
+
+    for (let i = 0; i < chord.s.length; i++) {
+        let s = chord.s[i];
+        if (s > max) max = s;
+        if (s < min && s>0) min = s;
+    }
+    chord.min = min;
+    console.log("min="+min+" max="+max);
+    let ret;
+    //нулевой лад это открытая струна, и точка не ставится, а значит и лада нулевого нет
+    if (min===0) ret = max-min
+    else ret = max-min+1;
+    ////if (ret<3) ret = 3; todo
+    return ret;
 }
 
 
 
-function drawTable(ctx, chord) {
+/**
+ *
+ * @param ctx
+ * @param chord
+ * @param width количество отображаемых ладов
+ */
+function drawTable(ctx, chord, width) {
     let line = new GLine(ctx);
     for (let i = 0; i < 6; i++) {
         //line.draw(0, S_HEIGHT*i, S_WIDTH*3, S_HEIGHT*i);
-        line.drawHorz(0, S_HEIGHT*i+10, S_WIDTH*3, 0.5);
+        line.drawHorz(0, S_HEIGHT*i+10, S_WIDTH*width, 0.5);
     }
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < width+1; i++) {
         line.drawVert(S_WIDTH*i, 0+10, S_HEIGHT*5, 0.5);
     }
 }
 
-function drawPoints(ctx, chord) {
+function drawPoints(ctx, chord, width) {
+    console.log("width = "+width);
     let line = new GLine(ctx);
+
     for (let i = 0; i < chord.s.length; i++) {
         let s = chord.s[i];
+        // let s = chord.s[i] - (chord.s[i]-width);
         if (Number.isInteger(Number(s))) {
-            console.log("is = "+s);
-            let num = s;
-            let w = S_WIDTH * s - S_WIDTH/2;
+            //console.log("is = "+s);
+            // console.log("chord.min = "+chord.min);
+            let num = s - chord.min+1;
+            console.log("chord.min = "+chord.min+" num = "+num+" s = "+s)
+            let w = S_WIDTH * num - S_WIDTH/2;
             line.drawCircle(w, i*S_HEIGHT+10);
         }
-
     }
-
 }
-
 
 
 /**Удобнее делать ф-ю отдельно от класса Chord: скорее всего будут какие-то уже готовые шаблоны аккордов, и тогда этим
@@ -157,6 +186,6 @@ function drawPoints(ctx, chord) {
 function drawChord(chord, id) {
     let count = getChordCount(chord);
     let ctx = document.getElementById(id).getContext("2d");
-    drawTable(ctx, chord);
-    drawPoints(ctx, chord);
+    drawTable(ctx, chord, count);
+    drawPoints(ctx, chord, count);
 }

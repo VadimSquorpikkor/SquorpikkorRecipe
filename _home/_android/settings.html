@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta charset="UTF-8">
     <title>Settings</title>
-    <link href="../../../css/prism.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
-    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link href="../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../js/chords.js"></script>
     <script src="/js/prism.js"></script>
 </head>
 
@@ -45,8 +46,10 @@
 <!--    <div onclick="drawChord(new Chord('0112200', 'Am'))" onload="drawChord(new Chord('0112200', 'Am'))">0</div>-->
 <!--    <div onload="javascript:alert('er')">1</div>-->
 
-    <canvas style="padding: 10px" id="id1"><script>drawChord(new Chord('012200', 'Am'), 'id1')</script></canvas>
-    <canvas style="padding: 10px" id="id2"><script>drawChord(new Chord('330023', 'Am'), 'id2')</script></canvas>
+
+
+    <canvas id="id1"><script>drawChord(new Chord('012200', 'Am'), 'id1')</script></canvas>
+    <canvas id="id2"><script>drawChord(new Chord('330023', 'Am'), 'id2')</script></canvas>
 
     <!--<img src="imgs/a.jpg"/>-->
 
@@ -423,7 +426,7 @@ public class SettingsActivity extends AppCompatActivity {
             <pre><code class="language-xml">
 &lt;string name="wrong_param">Некоректное значение!&lt;/string>
 &lt;string name="should_be_more_than">Число должно быть больше %d&lt;/string>
-&lt;string name="should_be_more_less">Число должно быть меньше %d</string>
+&lt;string name="should_be_more_less">Число должно быть меньше %d< /string>
     </code></pre>
 
         </details>
@@ -432,7 +435,7 @@ public class SettingsActivity extends AppCompatActivity {
 </div>
 </div>
 
-<script type="text/javascript" src="../../../js/include.js"></script>
-<script type="text/javascript" src="../../../js/include2.js"></script>
+<script type="text/javascript" src="../../js/include.js"></script>
+<script type="text/javascript" src="../../js/include2.js"></script>
 </body>
 </html>

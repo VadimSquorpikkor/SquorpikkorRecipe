@@ -7,24 +7,36 @@ getPrePath();
 
 function getMenu() {
 
-    return '<details><summary><span>Android</span></summary><ul>' +
-        '               <details><summary><span>Всякое разное</span></summary><ul>' +
-        '                       <li><a href="'+getPrePath()+'home/_android/part1/part1_1.html">SettingsActivity. Базовый код</a></li>' +
+    return '<details '+openIfContains("_home/_android")+'><summary><span>Android</span></summary><ul>' +
+        '               <details '+openIfContains("_home/_android/part1")+'><summary><span>Всякое разное</span></summary><ul>' +
+        '                       <li><a href="'+getPrePath()+'_home/_android/part1/part1_1.html">SettingsActivity. Базовый код</a></li>' +
         '               </ul></details>' +
-        '        <li><a href="../other/adapter.html">Адаптер USB-БД</a></li>' +
         '</ul></details>'+
-        '<details><summary><span>Muzz</span></summary><ul>' +
-        '               <details><summary><span>Всякое разное</span></summary><ul>' +
-        '                       <li><a href="'+getPrePath()+'_home/muzz/extreme/more_than_words.html">More Than Words</a></li>' +
-        '                       <li><a href="'+getPrePath()+'_home/muzz/oasis/wonderwall.html">Wonderwall</a></li>' +
-        '                       <li><a href="'+getPrePath()+'_home/muzz/s_and_g/mrs_robinson.html">Mrs. Robinson</a></li>' +
+        '<details '+openIfContains("_home/muzz")+'><summary><span>Muzz</span></summary><ul>' +
+        '               <details '+openIfContains("_home/muzz/rosenbaum")+'><summary><span>А. Розенбаум</span></summary><ul>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/rosenbaum/bratan.html">Братан</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/rosenbaum/vals_boston.html">Вальс-бостон</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/rosenbaum/veschaya_sudba.html">Вещая судьба</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/rosenbaum/narisuyte_mne_dom.html">Нарисуйте мне дом</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/rosenbaum/utinaya_ohota.html">Утиная охота</a></li>' +
         '               </ul></details>' +
-        '        <li><a href="../other/adapter.html">Адаптер USB-БД</a></li>' +
+        '               <details '+openIfContains("_home/muzz/other")+'><summary><span>Всякое разное</span></summary><ul>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/other/more_than_words.html">More Than Words</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/other/wonderwall.html">Wonderwall</a></li>' +
+        '                       <li><a href="'+getPrePath()+'_home/muzz/other/mrs_robinson.html">Mrs. Robinson</a></li>' +
+        '               </ul></details>' +
         '</ul></details>';
 }
 
 function sqrMenuAdapter(target) {
     target.innerHTML+=getMenu();
+}
+
+/**меню автоматом раскрывается до ссылки на открытую в данный момент страницу*/
+function openIfContains(path) {
+    let pagePath = window.location.href;
+    if (pagePath.includes(path)) return "open";
+    else return "";
 }
 
 /**

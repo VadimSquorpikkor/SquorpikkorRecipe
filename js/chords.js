@@ -128,10 +128,10 @@ function drawTable(ctx, chord) {
     let line = new GLine(ctx);
     for (let i = 0; i < 6; i++) {
         //line.draw(0, S_HEIGHT*i, S_WIDTH*3, S_HEIGHT*i);
-        line.drawHorz(0, S_HEIGHT*i, S_WIDTH*3, 0.5);
+        line.drawHorz(0, S_HEIGHT*i+10, S_WIDTH*3, 0.5);
     }
     for (let i = 0; i < 4; i++) {
-        line.drawVert(S_WIDTH*i, 0, S_HEIGHT*5, 0.5);
+        line.drawVert(S_WIDTH*i, 0+10, S_HEIGHT*5, 0.5);
     }
 }
 
@@ -143,7 +143,7 @@ function drawPoints(ctx, chord) {
             console.log("is = "+s);
             let num = s;
             let w = S_WIDTH * s - S_WIDTH/2;
-            line.drawCircle(w, i*S_HEIGHT);
+            line.drawCircle(w, i*S_HEIGHT+10);
         }
 
     }

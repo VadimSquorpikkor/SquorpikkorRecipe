@@ -1,5 +1,7 @@
 #SquorpikkorRecipe
 
+* <b>22.06.23</b>
+1. Правки в chords 2
 * <b>21.06.23</b>
 1. Правки в chords
 * <b>21.06.23</b>

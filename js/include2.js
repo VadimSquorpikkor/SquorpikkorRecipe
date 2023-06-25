@@ -5,7 +5,8 @@ let headStrokeMenuPlace = document.getElementById('sub_header');
 
 getPrePath();
 
-function getMenu() {
+
+function getMenu_old() {
 
     return '<details '+openIfContains("_home/_android")+'><summary><span>Android</span></summary><ul>' +
         '               <details '+openIfContains("_home/_android/part1")+'><summary><span>Всякое разное</span></summary><ul>' +
@@ -28,8 +29,64 @@ function getMenu() {
         '</ul></details>';
 }
 
+function getMenu() {
+    return ""+
+        insertDetails("_home/_android", "Android",
+            insertDetails("_home/_android/part1", "Всякое разное",
+                item("_home/_android/part1/part1_1.html", "SettingsActivity. Базовый код")+
+                item("_home/_android/part1/full_screen.html", "На весь экран")+
+                item("_home/_android/part1/auto_input.html", "Разное")
+            )
+        )+
+        insertDetails("_home/muzz", "Muzz", ""+
+            insertDetails("_home/muzz/mccartney", "Paul McCartney",""+
+                item("_home/muzz/mccartney/put_it_there.html", "Put It There")+
+                item("_home/muzz/mccartney/this_one.html", "This One")
+            )+
+            insertDetails("_home/muzz/aria", "Ария",""+
+                item("_home/muzz/aria/angel_pil.html", "Ангельская пыль")+
+                item("_home/muzz/aria/shtil.html", "Штиль")
+            )+
+            insertDetails("_home/muzz/rosenbaum", "А. Розенбаум",""+
+                item("_home/muzz/rosenbaum/bratan.html", "Братан")+
+                item("_home/muzz/rosenbaum/vals_boston.html", "Вальс-бостон")+
+                item("_home/muzz/rosenbaum/veschaya_sudba.html", "Вещая судьба")+
+                item("_home/muzz/rosenbaum/narisuyte_mne_dom.html", "Нарисуйте мне дом")+
+                item("_home/muzz/rosenbaum/utinaya_ohota.html", "Утиная охота")
+            )+
+            insertDetails("_home/muzz/other", "Всякое разное",""+
+                item("_home/muzz/other/more_than_words.html", "More Than Words")+
+                item("_home/muzz/other/wonderwall.html", "Wonderwall")+
+                item("_home/muzz/other/mrs_robinson.html", "Mrs. Robinson")+
+                item("_home/muzz/other/stairway_to_heaven.html", "Stairway To Heaven")
+            )
+        )
+}
+
 function sqrMenuAdapter(target) {
     target.innerHTML+=getMenu();
+}
+
+/**
+ *
+ * @param checkPath часть пути для проверки openIfContains
+ * @param title
+ * @param inner
+ */
+function insertDetails(checkPath, title, inner) {
+    return '<details '+openIfContains(checkPath)+'><summary><span>'+title+'</span></summary><ul>' +
+        inner +
+    '</ul></details>';
+}
+
+/**
+ *
+ * @param path
+ * @param title
+ * @returns {string}
+ */
+function item(path, title) {
+    return '<li><a href='+getPrePath()+path+'>'+title+'</a></li>';
 }
 
 /**меню автоматом раскрывается до ссылки на открытую в данный момент страницу*/

@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../../css/style.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <script src="/js/prism.js"></script>
+    <script src="../../../js/prism.js"></script>
 </head>
 
 <body>
@@ -42,11 +42,113 @@
         <h1>Toggler</h1>
 
         <div class="nice_details">
-            <details>
+            <details open>
                 <summary>SUMMARY</summary>
-                <pre><code class="language-java">
+                <pre><code class="language-java"><textarea>
+import android.view.View;
 
-            </code></pre>
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+
+/**
+ * Отличный получился класс
+ * Задача: нужна кнопка-переключатель у которой 2 состояния: вкл/выкл (типа ToggleButton).
+ * Состояние нужно хранить в вью моделе, также иметь возможность сохранять состояние после
+ * перезапуска приложения. Каждое из состояний кнопки запускает какой-то метод при нажатии.
+ * Ничего сложного, но приходится много писать, что лень.
+ *
+ * С помощью этого класса кидаем всё нужное в конструктор и указываем что делать при нажатии.
+ * Пример использования:
+ *      new Toggler(view.findViewById(R.id.full_screen_off), view.findViewById(R.id.full_screen_on), mViewModel.getIsFullScreen(), FULL_SCREEN_STATE_KEY, getViewLifecycleOwner());
+ * или так:
+ *      new Toggler(view, R.id.full_screen_on, R.id.full_screen_off, mViewModel.getIsFullScreen(), FULL_SCREEN_STATE_KEY, getViewLifecycleOwner());
+ *
+ * В вьюмоделе инициализируем так (если нужно, чтобы восстанавливалось значение после перезагрузки):
+ *      public static final int FULL_SCREEN_STATE_KEY = R.string.pref_full_screen;
+ *      private final MutableLiveData<Boolean> isFullScreen = new MutableLiveData<>(SaveLoad.getPrefBoolean(FULL_SCREEN_STATE_KEY, false));
+ *      public MutableLiveData<Boolean> getIsFullScreen() {
+ *         return isFullScreen;
+ *     }
+ *
+ * Все работает через observe:
+ *      mViewModel.getIsFullScreen().observe(getViewLifecycleOwner(), fs -> {
+ *          if (fs) windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());// Hide both the status bar and the navigation bar.
+ *          else windowInsetsController.show(WindowInsetsCompat.Type.systemBars());// Show both the status bar and the navigation bar.
+ *       });
+ *
+ * Вот и всё. Каждое из состояний рисуется отдельными кнопками (ImageView или Button или вообще
+ * Layout, не важно — любой наследник View)
+ *
+ *
+ * v - 1.01  -- добавлены абстрактные методы, альтернативный конструктор*/
+public class Toggler {
+
+    private final View isEnabled;
+    private final View isDisabled;
+    private final MutableLiveData<Boolean> state;
+    private final int KEY;
+
+    /**
+     * @param parent родительский view (фрагмента)
+     * @param toSwitchOn id отключенной кнопка
+     * @param toSwitchOff id включенной кнопка
+     * @param state ссылка на Mutable состояния кнопки
+     * @param KEY id ресурса с ключём сохранения состояния
+     * @param owner owner для Mutable
+     */
+    public Toggler(View parent, int toSwitchOn, int toSwitchOff, MutableLiveData<Boolean> state, int KEY, LifecycleOwner owner) {
+        this.isDisabled = parent.findViewById(toSwitchOn);
+        this.isEnabled = parent.findViewById(toSwitchOff);
+        this.state = state;
+        this.KEY = KEY;
+
+        isDisabled.setOnClickListener(v->switchButton(true));
+        isEnabled.setOnClickListener(v->switchButton(false));
+
+        state.observe(owner, this::update);
+    }
+
+    /**
+     * @param toSwitchOn отключенная кнопка
+     * @param toSwitchOff включенная кнопка
+     * @param state ссылка на Mutable состояния кнопки
+     * @param KEY id ресурса с ключём сохранения состояния
+     * @param owner owner для Mutable
+     */
+    public Toggler(View toSwitchOn, View toSwitchOff, MutableLiveData<Boolean> state, int KEY, LifecycleOwner owner) {
+        this.isDisabled = toSwitchOn;
+        this.isEnabled = toSwitchOff;
+        this.state = state;
+        this.KEY = KEY;
+
+        isDisabled.setOnClickListener(v->switchButton(true));
+        isEnabled.setOnClickListener(v->switchButton(false));
+
+        state.observe(owner, this::update);
+    }
+
+    private void update(Boolean b) {
+        isDisabled.setVisibility(b?View.GONE:View.VISIBLE);
+        isEnabled.setVisibility(b?View.VISIBLE:View.GONE);
+    }
+
+    private void switchButton(boolean b) {
+        state.postValue(b);
+//        if (b) switchOn();
+//        else switchOff();
+        SaveLoad.savePref(KEY, b);
+    }
+
+    public boolean getState() {
+        //noinspection SimplifiableConditionalExpression
+        return state.getValue()==null?false:state.getValue();
+    }
+
+//    public abstract void switchOn();
+//    public abstract void switchOff();
+
+}
+            </textarea></code></pre>
             </details>
         </div>
 

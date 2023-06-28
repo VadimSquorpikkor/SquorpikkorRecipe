@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>ValueChanger</title>
+    <link href="../../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../../js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+    <div id="content_div" class="content_div">
+        <h1>ValueChanger</h1>
+
+        <p>
+            Класс для работы с полем ввода типа EditText с численным значением и двумя кнопки увеличения и уменьшения
+            значения.
+        <ul>
+            <li>кнопка не изменяет значение при достижении предела допустимого значения;</li>
+            <li>при вводе значения вручную через EditText новое значение проверяется: является ли значение</li>
+            <li>числом и, если да, входит ли число в границы мин/макс. Если нет, значение окрашивается красным, а кнопка
+                OK становится неактивной;
+            </li>
+            <li>работает и с целочисленным значением и с вещественным. При работе с float можно задать шаг изменения
+                параметра (можно вещественный)
+            </li>
+            <li>работает с полем в виде HEX, при этом корректно работают кнопки увеличения и уменьшения значения</li>
+            <li>если нужен вариант без кнопок (только проверка введенного руками значения), то вместо ссылки на кнопки
+                ввести null;
+            </li>
+            <li>работа как с EditText, так и с TextView.</li>
+        </ul>
+        </p>
+
+        <h2>Использование:</h2>
+
+        <div class="nice_details">
+            <details open>
+                <summary>Вариант 1. Выбор типа проверяемого значения (int, float, hex) сразу в конструкторе</summary>
+                <pre><code class="language-java"><textarea>
+TextView decreaseButton = view.findViewById(R.id.decrease);
+ TextView increaseButton = view.findViewById(R.id.increase);
+ EditText input = view.findViewById(R.id.value);
+ new ValueChanger(input, minValue, maxValue, decreaseButton, increaseButton, okButton) {
+     @Override void emptyValue() {
+         SLog.e("emptyValue");
+     }
+     @Override void wrongValue() {
+         SLog.e("wrongValue");
+     }
+     @Override void valueShouldBeLessThan(String value) {
+         SLog.e("valueShouldBeLessThan");
+     }
+     @Override void valueShouldBeMoreThan(String value) {
+         SLog.e("valueShouldBeMoreThan");
+     }
+     @Override void showWarning(boolean show) {
+         SLog.e("showWarning");
+     }
+};
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details open>
+                <summary>Вариант 2. Так удобнее, если нужно несколько вариантов в одном диалоге в зависимости от типа данных, например см. SettingChangeDialog.
+                     Выбор типа проверяемого значения (int, float, hex) через сеттер</summary>
+                <pre><code class="language-java"><textarea>
+ValueChanger changer = new ValueChanger() {
+    @Override void emptyValue() {}
+    @Override void wrongValue() {}
+    @Override void valueShouldBeLessThan(String value) {}
+    @Override void valueShouldBeMoreThan(String value) {}
+    @Override void showWarning(boolean show) {}
+};
+changer.setAsInteger(input, minValue, maxValue, decreaseButton, increaseButton, okButton);
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details>
+                <summary>код</summary>
+                <pre><code class="language-java"><textarea>
+
+import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.TextView;
+
+/**
+ * Класс для работы с полем ввода типа EditText с численным значением и двумя кнопки увеличения
+ * и уменьшения значения.
+ * - кнопка не изменяет значение при достижения предела допустимого значения;
+ * - при вводе значения вручную через EditText новое значение проверяется: является ли значение
+ * числом и, если да, входит ли число в границы мин/макс. Если нет, значение окрашивается красным,
+ * а кнопка OK становится неактивной;
+ * - работает и с целочисленным значением и с вещественным. При работе с float можно задать шаг изменения параметра (можно вещественный)$
+ * - работает с полем в виде HEX, при этом корректно работают кнопки увеличения и уменьшения значения
+ * - если нужен вариант без кнопок (только проверка введенного руками значения),
+ * то вместо ссылки на кнопки ввести null;
+ * - работа как с EditText, так и с TextView.
+ * Применение:
+ * <hr>
+ *     //Выбор типа проверяемого значения (int, float, hex) сразу в конструкторе
+ *         TextView decreaseButton = view.findViewById(R.id.decrease);
+ *         TextView increaseButton = view.findViewById(R.id.increase);
+ *         EditText input = view.findViewById(R.id.value);
+ *         new ValueChanger(input, minValue, maxValue, decreaseButton, increaseButton, okButton) {
+ *             {@code @Override} void emptyValue() {
+ *                 SLog.e("emptyValue");
+ *             }
+ *             {@code @Override} void wrongValue() {
+ *                 SLog.e("wrongValue");
+ *             }
+ *             {@code @Override} void valueShouldBeLessThan(String value) {
+ *                 SLog.e("valueShouldBeLessThan");
+ *             }
+ *             {@code @Override} void valueShouldBeMoreThan(String value) {
+ *                 SLog.e("valueShouldBeMoreThan");
+ *             }
+ *             {@code @Override} void showWarning(boolean show) {
+ *                 SLog.e("showWarning");
+ *             }
+ * <hr>
+ *     или так (так удобнее, если нужно несколько вариантов в одном диалоге в зависимости от типа данных, например см. SettingChangeDialog):
+ *     //Выбор типа проверяемого значения (int, float, hex) через сеттер
+ *     ValueChanger changer = new ValueChanger() {
+ *             {@code @Override} void emptyValue() {}
+ *             {@code @Override} void wrongValue() {}
+ *             {@code @Override} void valueShouldBeLessThan(String value) {}
+ *             {@code @Override} void valueShouldBeMoreThan(String value) {}
+ *             {@code @Override} void showWarning(boolean show) {}
+ *         };
+ *         changer.setAsInteger(input, minValue, maxValue, decreaseButton, increaseButton, okButton);
+ * <hr>
+ * v - 1.01 -- если поле пустое, то нажатие + вводит минимальное значение, - вводит максимальное
+ *          -- добавлена поддержка TextView (до этого только EditText)
+ *          -- работа с hex > FF. Добавлены конструктор и методы для проверки hex с заданным макс значением (до этого hex был просто ограничен FF)
+ *          -- исправлено: при вводе некорректного значения цифры окрашивались красным, но после ввода исправленного значения окрашивались белым (при том, что сами цифры могли быть до этого например черными, ошибка хорошо видна на светлой теме), теперь — тем цветом, что был до ошибки
+ *          -- легкий рефакторинг
+ *          -- проверка на наличие okButton (теперь можно работать и без кнопки, тогда при инициализации вместо кнопки пишем null)
+ *
+ */
+public abstract class ValueChanger {
+
+   // TODO: 18.05.2023 по долгому нажатию автоинкремент значения
+
+   private View okButton;
+   int colorBeforeError;
+
+    public ValueChanger() {
+        //нужен
+    }
+
+//-------- для Edittext или TextView ---------------------------------------------------------------
+   public void setAsInteger(TextView editText, int minValue, int maxValue, View decreaseButton, View increaseButton, View okButton) {
+      this.okButton = okButton;
+
+      if (editText==null) return;
+      if (decreaseButton!=null) decreaseButton.setOnClickListener(v->decreaseIfCorrect(editText, minValue, maxValue));
+      if (increaseButton!=null) increaseButton.setOnClickListener(v->increaseIfCorrect(editText, minValue, maxValue));
+      editText.addTextChangedListener(getTextWatcher(editText, minValue, maxValue));
+   }
+
+   public void setAsFloat(TextView editText, float minValueF, float maxValueF, float step, View decreaseButton, View increaseButton, View okButton) {
+      this.okButton = okButton;
+
+      if (editText==null) return;
+      if (decreaseButton!=null) decreaseButton.setOnClickListener(v->decreaseIfCorrect(editText, minValueF, maxValueF, step));
+      if (increaseButton!=null) increaseButton.setOnClickListener(v->increaseIfCorrect(editText, minValueF, maxValueF, step));
+      editText.addTextChangedListener(getTextWatcherF(editText, minValueF, maxValueF));
+   }
+
+   public void setAsHex(TextView editText, int minValue, int maxValue, View decreaseButton, View increaseButton, View okButton) {
+      this.okButton = okButton;
+
+      if (editText==null) return;
+      if (decreaseButton!=null) decreaseButton.setOnClickListener(v->decreaseIfCorrectHex(editText, minValue, maxValue));
+      if (increaseButton!=null) increaseButton.setOnClickListener(v->increaseIfCorrectHex(editText, minValue, maxValue));
+      editText.addTextChangedListener(getTextWatcherHex(editText, minValue, maxValue));
+   }
+
+   public void setAsHex(TextView editText, View decreaseButton, View increaseButton, View okButton) {
+      this.okButton = okButton;
+
+      if (editText==null) return;
+      if (decreaseButton!=null) decreaseButton.setOnClickListener(v->decreaseIfCorrect(editText));
+      if (increaseButton!=null) increaseButton.setOnClickListener(v->increaseIfCorrect(editText));
+      editText.addTextChangedListener(getTextWatcherHex(editText));
+   }
+
+   public ValueChanger(TextView editText, int minValue, int maxValue, View decreaseButton, View increaseButton, View okButton) {
+      setAsInteger(editText, minValue, maxValue, decreaseButton, increaseButton, okButton);
+   }
+
+   public ValueChanger(TextView editText, float minValueF, float maxValueF, float step, View decreaseButton, View increaseButton, View okButton) {
+      setAsFloat(editText, minValueF, maxValueF, step, decreaseButton, increaseButton, okButton);
+   }
+
+   public ValueChanger(TextView editText, View decreaseButton, View increaseButton, View okButton) {
+      setAsHex(editText, decreaseButton, increaseButton, okButton);
+   }
+
+   public ValueChanger(TextView editText, int maxHexValue, View decreaseButton, View increaseButton, View okButton) {
+      setAsHex(editText, 0, maxHexValue, decreaseButton, increaseButton, okButton);
+   }
+
+//--------------------------------------------------------------------------------------------------
+   /**Поле ввода пустое*/
+   protected abstract void emptyValue();
+   /**Введённое значение не того формата (текст например)*/
+   public abstract void wrongValue();
+   /**Введённое значение больше максимума*/
+   public abstract void valueShouldBeLessThan(String value);
+   /**Введённое значение меньше минимума*/
+   public abstract void valueShouldBeMoreThan(String value);
+   /**Возвращает true, если введённое значение не корректно (любая ошибка). Возвращает false, если всё ок*/
+   public abstract void showWarning(boolean show);
+
+// для кнопок --------------------------------------------------------------------------------------
+
+   private void decreaseIfCorrect(TextView view, int min, int max) {
+      if (view.length()==0) view.setText(String.valueOf(max));
+      if (!isCorrect(view, min, max)) return;
+      int i = Integer.parseInt(view.getText().toString());
+      SLog.e("i = "+i+" min = "+min);
+      if (i > min) view.setText(String.valueOf(i - 1));
+   }
+
+   private void increaseIfCorrect(TextView view, int min, int max) {
+      if (view.length()==0) view.setText(String.valueOf(min));
+      if (!isCorrect(view, min, max)) return;
+      int i = Integer.parseInt(view.getText().toString());
+      SLog.e("i = "+i);
+      if (i < max) view.setText(String.valueOf(i + 1));
+   }
+
+   private void decreaseIfCorrect(TextView view, float min, float max, float step) {
+      if (view.length()==0) view.setText(String.valueOf(max));
+      if (!isCorrectF(view, min, max)) return;
+      float i = Float.parseFloat(view.getText().toString());
+      if (i > min) view.setText(String.valueOf(i - step));
+   }
+
+   private void increaseIfCorrect(TextView view, float min, float max, float step) {
+      if (view.length()==0) view.setText(String.valueOf(min));
+      if (!isCorrectF(view, min, max)) return;
+      float i = Float.parseFloat(view.getText().toString());
+      if (i < max) view.setText(String.valueOf(i + step));
+   }
+
+   private void decreaseIfCorrectHex(TextView view, int min, int max) {
+      if (view.length()==0) view.setText("FF");// TODO: 28.06.2023
+      if (!isCorrectHex(view, min, max)) return;
+      int i = Integer.parseInt(view.getText().toString(), 16);
+      int newValue = i - 1;
+      String asHex = String.format("%02x", newValue).toUpperCase();
+      if (i > 0) view.setText(asHex);
+   }
+
+   private void increaseIfCorrectHex(TextView view, int min, int max) {
+      if (view.length()==0) view.setText("00");
+      if (!isCorrectHex(view, min, max)) return;
+      int i = Integer.parseInt(view.getText().toString(), 16);
+      int newValue = i + 1;
+      String asHex = String.format("%02x", newValue).toUpperCase();
+      if (i < 255) view.setText(asHex);
+   }
+
+   private void decreaseIfCorrect(TextView view) {
+      if (view.length()==0) view.setText("FF");
+      if (!isCorrectHex(view)) return;
+      int i = Integer.parseInt(view.getText().toString(), 16);
+      int newValue = i - 1;
+      String asHex = String.format("%02x", newValue).toUpperCase();
+      if (i > 0) view.setText(asHex);
+   }
+
+   private void increaseIfCorrect(TextView view) {
+      if (view.length()==0) view.setText("00");
+      if (!isCorrectHex(view)) return;
+      int i = Integer.parseInt(view.getText().toString(), 16);
+      int newValue = i + 1;
+      String asHex = String.format("%02x", newValue).toUpperCase();
+      if (i < 255) view.setText(asHex);
+   }
+
+// для ввода руками --------------------------------------------------------------------------------
+
+
+   public TextWatcher getTextWatcher(TextView editText, int min, int max) {
+      return new TextWatcher() {
+         @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void afterTextChanged(Editable editable) {
+            doIf(isCorrect(editText, min, max));
+         }
+      };
+   }
+
+   public TextWatcher getTextWatcherF(TextView editText, float min, float max) {
+      return new TextWatcher() {
+         @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void afterTextChanged(Editable editable) {
+            doIf(isCorrectF(editText, min, max));
+         }
+      };
+   }
+
+   public TextWatcher getTextWatcherHex(TextView editText, int min, int max) {
+      return new TextWatcher() {
+         @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void afterTextChanged(Editable editable) {
+            doIf(isCorrectHex(editText, min, max));
+         }
+      };
+   }
+
+   public TextWatcher getTextWatcherHex(TextView editText) {
+      return new TextWatcher() {
+         @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+         @Override public void afterTextChanged(Editable editable) {
+            doIf(isCorrectHex(editText));
+         }
+      };
+   }
+
+   private void setColor(TextView input, boolean isOk) {
+      if (isOk) {
+         if (colorBeforeError!=0) {
+            input.setTextColor(colorBeforeError);
+            colorBeforeError=0;
+         }
+      } else {
+         if (colorBeforeError==0) colorBeforeError = input.getCurrentTextColor();
+         input.setTextColor(Color.RED);
+      }
+   }
+
+   boolean isCorrect(TextView input, int min, int max) {
+      boolean inRange = checkIntInRange(input.getText().toString(), min, max);
+      setColor(input, inRange);
+      return inRange;
+   }
+
+   boolean isCorrectF(TextView input, float min, float max) {
+      boolean inRange = checkFloatInRange(input.getText().toString(), min, max);
+      setColor(input, inRange);
+      return inRange;
+   }
+
+   boolean isCorrectHex(TextView input) {
+      boolean inRange = checkHexInRange(input.getText().toString());
+      setColor(input, inRange);
+      return inRange;
+   }
+
+   boolean isCorrectHex(TextView input, int min, int max) {
+      boolean inRange = checkHexInRange(input.getText().toString(), min, max);
+      setColor(input, inRange);
+      return inRange;
+   }
+
+   private void doIf(boolean isCorrect) {
+      if (okButton!=null) okButton.setEnabled(isCorrect);
+      //okButton.setVisibility(isCorrect? View.VISIBLE:View.GONE);
+      showWarning(!isCorrect);
+   }
+
+//  ----------------------------------------
+
+   /**Новое значение должно быть integer и в диапазоне min-max*/
+   boolean checkIntInRange(Object newValue, int min, int max) {
+      if (!checkInt(newValue)) return false;
+      int i = Integer.parseInt((String)newValue);
+      if (i < min) {
+         valueShouldBeMoreThan(""+i);
+         return false;
+      }
+      if (i > max) {
+         valueShouldBeLessThan(""+i);
+         return false;
+      }
+      return true;
+   }
+
+   /**проверка: если было введено не число (а буквы например) то выведется диалог или тост*/
+   boolean checkInt(Object newValue) {
+      String s = (String) newValue;
+      if (s.length() == 0) {
+         emptyValue();
+         return false;
+      }
+      //если ввести "1", вернет true, если "А", то сработает исключение и вернется false
+      try { int def = Integer.parseInt(s);
+      } catch (NumberFormatException e) {
+         //выводим сообщение об ошибке
+         wrongValue();
+         return false;
+      }
+      return true;
+   }
+
+   /**Новое значение должно быть integer и в диапазоне min-max*/
+   boolean checkFloatInRange(Object newValue, float min, float max) {
+      if (!checkFloat(newValue)) return false;
+      float f = Float.parseFloat((String)newValue);
+      if (f < min) {
+         valueShouldBeMoreThan(""+f);
+         return false;
+      }
+      if (f > max) {
+         valueShouldBeLessThan(""+f);
+         return false;
+      }
+      return true;
+   }
+
+   /**проверка: если было введено не число (а буквы например) то выведется сообщение об ошибке*/
+   boolean checkFloat(Object newValue) {
+      String s = (String) newValue;
+      if (s.length() == 0) {
+         emptyValue();
+         return false;
+      }
+      //если ввести "1", вернет true, если "А", то сработает исключение и вернется false
+      try { float def = Float.parseFloat(s);
+      } catch (NumberFormatException e) {
+         //выводим сообщение об ошибке
+         wrongValue();
+         return false;
+      }
+      return true;
+   }
+
+   boolean checkHexInRange(Object newValue, int min, int max) {
+      if (!checkHex(newValue)) return false;
+      int i = Integer.parseInt((String)newValue, 16);
+      if (i < min) {
+         valueShouldBeMoreThan("00......todo");
+         return false;
+      }
+      if (i > max) {
+         valueShouldBeLessThan("FF......todo");
+         return false;
+      }
+      return true;
+   }
+
+   boolean checkHexInRange(Object newValue) {
+      if (!checkHex(newValue)) return false;
+      String hex = ((String) newValue).replace(" ", "");//12 0F -> 120F
+      int i = Integer.parseInt(hex, 16);
+      if (i < 0) {
+         valueShouldBeMoreThan("00");
+         return false;
+      }
+      if (i > 255) {
+         valueShouldBeLessThan("FF");
+         return false;
+      }
+      return true;
+   }
+
+
+   /**Проверка HEX*/
+   boolean checkHex(Object newValue) {
+      String hex = ((String) newValue).replace(" ", "");//12 0F -> 120F
+      if (hex.length() == 0) {
+         emptyValue();
+         return false;
+      }
+      try {
+         int i = Integer.parseInt(hex, 16);
+         //if (i<0||i>255) throw new NumberFormatException();
+      } catch (NumberFormatException e) {
+         //выводим сообщение об ошибке
+         wrongValue();
+         return false;
+      }
+      return true;
+   }
+}
+
+                </textarea></code></pre>
+            </details>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
+</body>
+</html>

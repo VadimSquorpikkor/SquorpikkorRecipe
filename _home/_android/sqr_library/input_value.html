@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Buzz</title>
+    <link href="../../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../../js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+
+    <div id="content_div" class="content_div">
+        <h1>Buzz</h1>
+
+        <div class="nice_details">
+            <details open>
+                <summary>style.xml</summary>
+                <pre><code class="language-java"><textarea>
+<!--*********************************************************************************************-->
+<!--Для ввода значений, когда по бокам EditText ещё две кнопки "+" "-"-->
+<style name="dialogLinearEditSquare">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/value_edit_text_field_rect</item>
+    <item name="android:paddingTop">4dp</item>
+    <item name="android:paddingBottom">4dp</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:layout_margin">0dp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:inputType">number</item>
+    <item name="android:digits">-1234567890</item>
+</style>
+<style name="dialogLinearEditSquare.decimal">
+    <item name="android:digits">-1234567890.</item>
+</style>
+<style name="dialogLinearEditLeft" parent="dialogLinearEditSquare">
+    <item name="android:text">@string/sign_minus</item>
+    <item name="android:background">@drawable/value_edit_button_left_selector</item>
+    <item name="android:layout_weight">0</item>
+    <item name="android:paddingStart">20dp</item>
+    <item name="android:paddingEnd">20dp</item>
+</style>
+<style name="dialogLinearEditRight" parent="dialogLinearEditLeft">
+    <item name="android:text">@string/sign_plus</item>
+    <item name="android:background">@drawable/value_edit_button_right_selector</item>
+</style>
+<!--*********************************************************************************************-->
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <h2>DRAWABLE</h2>
+
+        <div class="nice_details">
+            <details>
+                <summary>value_edit_button_left_selector.xml</summary>
+                <pre><code class="language-java"><textarea>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape
+            android:shape="rectangle">
+            <solid android:color="?attr/customButtonPressed"/>
+            <corners android:bottomLeftRadius="20dp" android:topLeftRadius="20dp" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="?attr/EditTextBackgroundColor"/>
+            <corners android:bottomLeftRadius="20dp" android:topLeftRadius="20dp" />
+        </shape>
+    </item>
+</selector>
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details>
+                <summary>value_edit_button_right_selector.xml</summary>
+                <pre><code class="language-java"><textarea>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape
+            android:shape="rectangle">
+            <solid android:color="?attr/customButtonPressed"/>
+            <corners android:bottomRightRadius="20dp" android:topRightRadius="20dp" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="?attr/EditTextBackgroundColor"/>
+            <corners android:bottomRightRadius="20dp" android:topRightRadius="20dp" />
+        </shape>
+    </item>
+</selector>
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details>
+                <summary>value_edit_text_field_rect.xml</summary>
+                <pre><code class="language-java"><textarea>
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:shape="rectangle">
+
+    <solid android:color="?attr/EditTextBackgroundColor"/>
+</shape>
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <H2>VALUES</H2>
+
+        <div class="nice_details">
+            <details>
+                <summary>strings.xml</summary>
+                <pre><code class="language-java"><textarea>
+<string name="sign_minus">-</string>
+<string name="sign_plus">+</string>
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details>
+                <summary>attrs.xml</summary>
+                <pre><code class="language-java"><textarea>
+
+                </textarea></code></pre>
+            </details>
+        </div>
+
+
+        <div class="nice_details">
+            <details>
+                <summary>Layout</summary>
+                <pre><code class="language-java"><textarea>
+//...
+<LinearLayout style="@style/horizontalCenter">
+    <TextView style="@style/dialogLinearEditLeft" android:id="@+id/decrease"/>
+    <EditText style="@style/dialogLinearEditSquare" android:id="@+id/value" />
+    <TextView style="@style/dialogLinearEditRight" android:id="@+id/increase"/>
+</LinearLayout>
+//...
+                </textarea></code></pre>
+            </details>
+        </div>
+
+        <div class="nice_details">
+            <details>
+                <summary>или так</summary>
+                <pre><code class="language-java"><textarea>
+//...
+<LinearLayout style="@style/horizontalCenter" android:layout_weight="1" android:layout_width="0dp">
+    <TextView style="@style/dialogLinearEditLeft" android:id="@+id/decrease"/>
+    <EditText style="@style/dialogLinearEditSquare" tools:text="300" android:id="@+id/value" tools:text="1234" tools:ignore="LabelFor" android:importantForAutofill="no" />
+    <TextView style="@style/dialogLinearEditRight" android:id="@+id/increase"/>
+</LinearLayout>
+//...
+                </textarea></code></pre>
+            </details>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
+</body>
+</html>

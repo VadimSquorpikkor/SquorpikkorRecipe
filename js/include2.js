@@ -31,11 +31,20 @@ function getMenu_old() {
 
 function getMenu() {
     return ""+
-        insertDetails("_home/_android", "Android",
-            insertDetails("_home/_android/part1", "Всякое разное",
+        insertDetails("_home/_android", "Android",""+
+            insertDetails("_home/_android/part1", "Всякое разное",""+
                 item("_home/_android/part1/part1_1.html", "SettingsActivity. Базовый код")+
                 item("_home/_android/part1/full_screen.html", "На весь экран")+
                 item("_home/_android/part1/auto_input.html", "Разное")
+            )+
+            insertDetails("_home/_android/sqr_library", "Sqr Library",""+
+                item("_home/_android/sqr_library/buzz.html", "Buzz")+
+                item("_home/_android/sqr_library/input_value.html", "InputValue")+
+                item("_home/_android/sqr_library/p_checker.html", "PermissionChecker")+
+                item("_home/_android/sqr_library/save_load.html", "SaveLoad")+
+                item("_home/_android/sqr_library/theme_utils.html", "ThemeUtils")+
+                item("_home/_android/sqr_library/value_changer.html", "ValueChanger")+
+                item("_home/_android/sqr_library/toggler.html", "Toggler")
             )
         )+
         insertDetails("_home/muzz", "Muzz", ""+

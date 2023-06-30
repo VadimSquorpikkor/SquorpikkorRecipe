@@ -35,7 +35,10 @@ function getMenu() {
             insertDetails("_home/_android/part1", "Всякое разное",""+
                 item("_home/_android/part1/part1_1.html", "SettingsActivity. Базовый код")+
                 item("_home/_android/part1/full_screen.html", "На весь экран")+
-                item("_home/_android/part1/auto_input.html", "Разное")
+                item("_home/_android/part1/auto_input.html", "Разное")+
+                item("_home/_android/part1/md_stuff.html", "ReadMe.MD")+
+                item("_home/_android/part1/entity_timeout.html", "Entity Timeout")+
+                item("_home/_android/part1/request.html", "RequestPermissions")
             )+
             insertDetails("_home/_android/sqr_library", "Sqr Library",""+
                 item("_home/_android/sqr_library/buzz.html", "Buzz")+

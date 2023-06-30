@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Бесконечное включение экрана</title>
+    <link href="../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+
+    <div id="content_div" class="content_div">
+        <h1>Бесконечное включение экрана</h1>
+
+        <div class="nice_details">
+            <details open>
+                <summary>Бесконечное включение экрана через startActivityForResult (deprecated) версия 1:</summary>
+                <pre><code class="language-java"><textarea>
+@Override
+public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    if (savedInstanceState == null) {
+        //...
+        checkPermission2();
+    }
+}
+
+public static final int SCREEN_ENTITY_TIMEOUT = Integer.MAX_VALUE;
+public static final int WRITE_SETTINGS = 100;
+
+public void checkPermission2(){
+    try {
+        mViewModel.getScreenTimeout().postValue(Settings.System.getInt(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT));
+    } catch (Settings.SettingNotFoundException e) {
+        throw new RuntimeException(e);
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        SLog.e("♦♦♦ Settings.System.canWrite = "+Settings.System.canWrite(requireActivity()));
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Settings.System.canWrite(requireActivity())) {
+            Settings.System.putInt(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, SCREEN_ENTITY_TIMEOUT);
+        } else {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            intent.setData(Uri.parse("package:" + requireActivity().getPackageName()));
+            startActivityForResult(intent, WRITE_SETTINGS);
+        }
+    } else {
+        ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.WRITE_SETTINGS}, WRITE_SETTINGS);
+    }
+}
+
+public static final int WRITE_SETTINGS = 100;
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode == WRITE_SETTINGS) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            SLog.e("♦♦♦ WriterSettings Permission Granted");
+            //Settings.System.putString(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, "-1");//на наутизе x6 -1 не работает
+            Settings.System.putInt(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, SCREEN_ENTITY_TIMEOUT);
+        }
+        else {
+            SLog.e("♦♦♦ WriterSettings Permission Denied");
+        }
+    }
+}
+
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //...
+    else if (requestCode == WRITE_SETTINGS) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.System.canWrite(requireActivity())) {
+                //Settings.System.putString(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, "30");//не работает
+                android.provider.Settings.System.putInt(requireActivity().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, SCREEN_ENTITY_TIMEOUT);
+            } else {
+                SLog.e("♦♦♦ WriterSettings Permission Denied");
+            }
+        }
+    }
+    super.onActivityResult(requestCode, resultCode, data);
+}
+
+//в MainViewModel
+@Override
+protected void onCleared() {
+    //...
+    restoreScreenTimeout();
+    super.onCleared();
+}
+
+private void restoreScreenTimeout() {
+    //чисто для проверки
+    try {
+        int time = Settings.System.getInt(App.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT);
+        SLog.e("♦♦♦ destroy timeNow = "+time);
+        SLog.e("♦♦♦ destroy timeSaved = "+mScreenTimeout.getValue());
+    } catch (Settings.SettingNotFoundException ignored) {}
+
+    //если время затухания экрана было изменено, то при выходе из программы восстанавливаем время которое было до запуска приложения
+    boolean timeOutHadBeenChanged = mScreenTimeout.getValue()!=null && mScreenTimeout.getValue()!=-1;
+    if (timeOutHadBeenChanged) Settings.System.putInt(App.getContext().getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, mScreenTimeout.getValue());
+}
+                </textarea></code></pre>
+            </details>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>ReadMe.MD</title>
+    <link href="../../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../../js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+
+    <div id="content_div" class="content_div">
+        <h1>ReadMe.MD</h1>
+
+
+        <pre><code class="language-java"><textarea>
+## TODO LIST ##
+* [x] Set custom layouts for player.
+* [ ] Add Instrumentation tests
+* [ ] Add unit tests.
+        </textarea></code></pre>
+
+        <pre><code class="language-java"><textarea>
+## Gradle Dependency (Module level)
+```Gradle
+dependencies {
+    // ... other dependencies
+     implementation 'com.github.jeancsanchez:JcPlayer:{version}'
+}
+```
+
+### How can I get callbacks of player status?
+```java
+    MyActivity implements JcPlayerManagerListener {
+        ....
+        jcplayerView.setJcPlayerManagerListener(this);
+        // Just be happy :D
+ }
+```
+
+## Custom layout
+You can customize the player layout by manipulating these attributes.
+```xml
+    app:next_icon
+	app:next_icon_color
+	app:text_audio_duration_color
+	app:text_audio_title_color
+```
+        </textarea></code></pre>
+
+        <pre><code class="language-java"><textarea>
+| <img src="rsa_1.png" height="400"> | <img src="rsa_2.png" height="400"> | <img src="rsa_3.png" height="400"> |
+|------------------------------------|------------------------------------|------------------------------------|
+| <img src="rsa_4.png" height="400"> | <img src="rsa_5.png" height="400"> | <img src="rsa_6.png" height="400"> |
+        </textarea></code></pre>
+
+        <pre><code class="language-java"><textarea>
+# Radiation Scanner Assistant 1.2.9.92
+### <i>Программа Radiation Scanner Assistant предназначена для обеспечения работы спектрометра МКС-АТ6101С, а именно выполнение гамма- нейтронного сканирования местности с GPS привязкой, измерение спектра гамма-излучения, обнаружение и локализация гамма- нейтронных источников радиации , сохранение результатов в памяти смартфона.</i>
+[Описание программы (1.2.6)](./about.txt)
+
+[Список версий](./VERSION.md)
+        </textarea></code></pre>
+
+        <pre><code class="language-java"><textarea>
+* [Скачать .apk последней версии SNM - 1.2.9.91](./apks/RadiationScannerAssistant-v1.2.9.92_SNM.apk)
+<hr>
+
+* [Скачать с ftp - 1.2.9.91](http://gikalo.atomtex.com/RadiationScannerAssistant-v1.2.9.91.apk)
+        </textarea></code></pre>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../js/include.js"></script>
+<script type="text/javascript" src="../../../js/include2.js"></script>
+</body>
+</html>

@@ -24,17 +24,18 @@ body {
 h1 {
     font-size: 18px;
     color: var(--text_color_colored);
-    margin: 4px;
+    margin: 16px 0 16px 0;
 }
 h2 {
     font-size: 14px;
     color: var(--text_color_colored);
-    margin: 4px;
+    margin: 16px 0 16px 0;
 }
 div {
-    padding: 8px;
+    margin: 16px 0 16px 0;
 }
 .header {
+    margin: 0;
     padding: 0;
     background-color: var(--background_color_dark);
     color: var(--text_color_light);
@@ -50,14 +51,15 @@ div {
     padding: 20px;
 }
 .nice_details {
-    padding: 0;
-    margin: 4px;
+    /*padding: 16px;*/
+    /*margin: 4px;*/
     border: var(--border_style);
     border-radius: 4px;
 }
 .nice_details summary {
     background-color: var(--background_color_light_gray);
     cursor: pointer;
+    padding: 8px;
 }
 /*pre[data-lang]::before { content: attr(data-lang); display: block; }*/
 pre {
@@ -70,6 +72,14 @@ pre {
     font-size: 14px;
     overflow: auto;
     overflow-y: hidden;
+}
+
+ul {
+    padding: 0 0 0 40px;
+    margin: 16px 0 16px 0;
+}
+li {
+    list-style: disc;
 }
 
 @media (max-width: 1420px) {
@@ -107,6 +117,11 @@ details {
 
 details ul{
     margin: 2px 2px 2px 20px;
+    padding: 0;
+}
+
+details li {
+    list-style: none;
 }
 
 summary {
@@ -137,6 +152,9 @@ summary {
     background-color: #555; /* Add a dark-grey background on hover */
 }
 
+#menu_main {
+    margin: 0;
+}
 
 #menu_main a {
     display: inline-block;
@@ -153,6 +171,7 @@ summary {
     width: 100%; /* Full width */
     transition: top 0.3s; /* Transition effect when sliding down (and up) */
     padding: 0;
+    margin: 0;
 }
 
 /* Style the navbar links */

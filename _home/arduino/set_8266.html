@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta charset="UTF-8">
+    <title>Buzz</title>
+    <link href="../../css/prism.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="../../js/prism.js"></script>
+</head>
+
+<body>
+
+<button onclick="topFunction()" id="backToTopButton" title="Go to top">Top</button>
+
+<div class="top_slide_panel" id="top_slide_panel">
+    <a class="menu_button" onclick="openNav()">&#9776;</a>
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="header">
+    <div id="menu_main">
+        <a class="menu_button" onclick="openNav()">&#9776;</a>
+    </div>
+</div>
+
+<div id="mySidepanel" class="sidePanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+</div>
+
+<div class="main_div">
+
+    <div id="menuPanel" class="leftMenuPanel"></div>
+
+
+
+    <div id="content_div" class="content_div">
+        <h1>Buzz</h1>
+
+        Настроить ArduinoIDE для работы с 8266:
+        <ul>
+            <li>File->Preferences</li>
+            <li>В поле "Additional boards..." вставить строку <i>http://arduino.esp8266.com/stable/package_esp8266com_index.json</i></li>
+            <li>Tools->Boards->Boards Manager. Найти "esp8266 by ESP8266 Community" и нажать "Install"</li>
+            <li>Для работы с платами ESP 8266 нужно в пункте меню «Tools» > «Boards» > «ESP8266 Boards» выбрать соответствующую плату или «Generic ESP8266 Module». Платы Wemos -- это "LOLIN(WEMOS) D1 R2 & mini"</li>
+            <li>Выбрать порт (установить <a href="files/driver_cp210x_win_10_universal_v10.1.8.zip" download>driver_cp210x</a>, если не был установлен)</li>
+        </ul>
+
+        <h2>Библиотеки</h2>
+
+        <ul>
+            <li><a href="files/PubSubClient-2.8.0.zip" download>PubSubClient-2.8.0.zip</a></li>
+        </ul>
+
+
+
+
+
+
+
+        <div class="nice_details">
+            <details open>
+                <summary>SUMMARY</summary>
+                <pre><code class="language-java"><textarea>
+
+                </textarea></code></pre>
+            </details>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/include.js"></script>
+<script type="text/javascript" src="../../js/include2.js"></script>
+</body>
+</html>

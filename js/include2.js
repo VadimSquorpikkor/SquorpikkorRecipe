@@ -59,10 +59,26 @@ function getMenu() {
                 item("_home/muzz/aria/angel_pil.html", "Ангельская пыль")+
                 item("_home/muzz/aria/shtil.html", "Штиль")
             )+
+            insertDetails("_home/muzz/bon_jovi", "Bon Jovi",""+
+                item("_home/muzz/bon_jovi/ill_be_there.html", "I'll Be There For You")
+            )+
+            insertDetails("_home/muzz/green_day", "Green Day",""+
+                item("_home/muzz/green_day/f_o_d.html", "FOD")+
+                item("_home/muzz/green_day/good_riddance.html", "Good Riddance")
+            )+
+            insertDetails("_home/muzz/oasis", "Oasis",""+
+                item("_home/muzz/oasis/champagne_supernova.html", "Champagne Supernova")+
+                item("_home/muzz/oasis/wonderwall.html", "Wonderwall")
+            )+
+            insertDetails("_home/muzz/pink_floyd", "Pink Floyd",""+
+                item("_home/muzz/pink_floyd/learning_to_fly.html", "Learning To Fly")+
+                item("_home/muzz/pink_floyd/shtil.html", "Штиль")
+            )+
             insertDetails("_home/muzz/rosenbaum", "А. Розенбаум",""+
                 item("_home/muzz/rosenbaum/bratan.html", "Братан")+
                 item("_home/muzz/rosenbaum/vals_boston.html", "Вальс-бостон")+
                 item("_home/muzz/rosenbaum/veschaya_sudba.html", "Вещая судьба")+
+                item("_home/muzz/rosenbaum/monolog_pilota.html", "Монолог пилота «чёрного тюльпана»")+
                 item("_home/muzz/rosenbaum/narisuyte_mne_dom.html", "Нарисуйте мне дом")+
                 item("_home/muzz/rosenbaum/utinaya_ohota.html", "Утиная охота")
             )+
